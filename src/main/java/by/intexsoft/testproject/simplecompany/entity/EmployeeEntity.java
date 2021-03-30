@@ -8,7 +8,7 @@ import java.util.Objects;
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int employeeId;
 
     @Column
     private String firstName;
@@ -22,6 +22,14 @@ public class EmployeeEntity {
     }
 
     public EmployeeEntity() {
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -56,7 +64,7 @@ public class EmployeeEntity {
     @Override
     public String toString() {
         return "EmployeeEntity{" +
-                "id=" + id +
+                "id=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
