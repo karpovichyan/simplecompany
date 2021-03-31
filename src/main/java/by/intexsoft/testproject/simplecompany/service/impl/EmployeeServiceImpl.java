@@ -16,17 +16,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void createEmployee(EmployeeDto employeeDto) {
-        EmployeeEntity employeeEntity = new EmployeeEntity(employeeDto.getFirstName(), employeeDto.getLastName());
+        EmployeeEntity employeeEntity = new EmployeeEntity(
+                employeeDto.getFirstName(),
+                employeeDto.getLastName()
+        );
         employeeRepository.save(employeeEntity);
     }
-
-   /*
-    @Override
-    public Set<EmployeeDto> getEmployers(Integer employerId) {
-        return employeeRepository.findByEmployeeId(employerId).stream()
-                .map(employeeEntity -> new EmployeeDto(employeeEntity.))
-                .collect(Collectors.toSet());
-    }
-
-    */
 }
