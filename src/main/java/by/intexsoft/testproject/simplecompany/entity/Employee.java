@@ -2,10 +2,10 @@ package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "employees")
-public class EmployeeEntity {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,12 +16,20 @@ public class EmployeeEntity {
     @Column
     private String lastName;
 
-    public EmployeeEntity(String firstName, String lastName) {
+    @OneToOne
+    @JoinColumn(name = "position_info")
+    private JobInfo jobInfo;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<Timesheet> timesheets;
+
+    public Employee(String firstName, String lastName, JobInfo jobInfo) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.jobInfo = jobInfo;
     }
 
-    public EmployeeEntity() {
+    public Employee() {
     }
 
     public String getFirstName() {
@@ -40,25 +48,32 @@ public class EmployeeEntity {
         this.lastName = lastName;
     }
 
+    public JobInfo getJobInfo() {
+        return jobInfo;
+    }
+
+    public void setJobInfo(JobInfo jobInfo) {
+        this.jobInfo = jobInfo;
+    }
+
+    public Set<Timesheet> getTimesheets() {
+        return timesheets;
+    }
+
+    public void setTimesheets(Set<Timesheet> timesheets) {
+        this.timesheets = timesheets;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EmployeeEntity that = (EmployeeEntity) o;
-        return firstName.equals(that.firstName) && lastName.equals(that.lastName);
+        Employee employee = (Employee) o;
+        return id == employee.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeEntity{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return Objects.hash(id);
     }
 }

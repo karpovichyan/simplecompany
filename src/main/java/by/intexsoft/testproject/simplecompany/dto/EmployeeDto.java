@@ -4,12 +4,12 @@ public class EmployeeDto {
     private int id;
     private String firstName;
     private String lastName;
+    private String position;
 
-
-    public EmployeeDto(int id, String firstName, String lastName) {
-        this.id = id;
+    public EmployeeDto(String firstName, String lastName, String position) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.position = position;
     }
 
     public EmployeeDto() {
@@ -37,5 +37,13 @@ public class EmployeeDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

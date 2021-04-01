@@ -1,6 +1,7 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
 public class TimesheetDto {
+    private int id;
     private int month;
     private int year;
     private int totalHours;
@@ -12,6 +13,14 @@ public class TimesheetDto {
     }
 
     public TimesheetDto() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMonth() {
