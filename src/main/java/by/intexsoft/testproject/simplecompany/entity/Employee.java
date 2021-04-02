@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,17 +17,17 @@ public class Employee {
     @Column
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "position_info")
-    private JobInfo jobInfo;
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Position position;
 
     @OneToMany(mappedBy = "employee")
-    private Set<Timesheet> timesheets;
+    private Set<EmployeeActivity> employeeActivities;
 
-    public Employee(String firstName, String lastName, JobInfo jobInfo) {
+    public Employee(String firstName, String lastName, Position position) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.jobInfo = jobInfo;
+        this.position = position;
     }
 
     public Employee() {
@@ -48,20 +49,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public JobInfo getJobInfo() {
-        return jobInfo;
+    public Position getJobInfo() {
+        return position;
     }
 
-    public void setJobInfo(JobInfo jobInfo) {
-        this.jobInfo = jobInfo;
-    }
-
-    public Set<Timesheet> getTimesheets() {
-        return timesheets;
-    }
-
-    public void setTimesheets(Set<Timesheet> timesheets) {
-        this.timesheets = timesheets;
+    public void setJobInfo(Position position) {
+        this.position = position;
     }
 
     @Override

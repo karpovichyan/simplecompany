@@ -5,7 +5,7 @@
 -- Dumped from database version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
 
--- Started on 2021-03-31 17:25:56 +03
+-- Started on 2021-03-31 17:28:08 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -425,7 +425,7 @@ ALTER TABLE ONLY public.employeeActivity
     ADD CONSTRAINT type_info FOREIGN KEY (type_info) REFERENCES public.activity_type_info(type);
 
 
--- Completed on 2021-03-31 17:25:57 +03
+-- Completed on 2021-03-31 17:28:09 +03
 
 --
 -- PostgreSQL database dump complete

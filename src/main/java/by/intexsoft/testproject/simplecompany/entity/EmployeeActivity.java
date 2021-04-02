@@ -2,9 +2,11 @@ package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-public class Activity {
+@Table(name = "employee_activity")
+public class EmployeeActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,20 +16,25 @@ public class Activity {
     private int hours;
 
     @ManyToOne
-    @JoinColumn(name = "timesheet_id")
-    private Timesheet timesheet;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "type_info")
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private ActivityTypeInfo activityTypeInfo;
 
-    public Activity(int hours, Timesheet timesheet, ActivityTypeInfo activityTypeInfo) {
+    public EmployeeActivity(int hours, Employee employee, Plan plan, ActivityTypeInfo activityTypeInfo) {
         this.hours = hours;
-        this.timesheet = timesheet;
+        this.employee = employee;
+        this.plan = plan;
         this.activityTypeInfo = activityTypeInfo;
     }
 
-    public Activity() {
+    public EmployeeActivity() {
     }
 
     public int getHours() {
@@ -38,12 +45,12 @@ public class Activity {
         this.hours = hours;
     }
 
-    public Timesheet getTimesheet() {
-        return timesheet;
+    public Plan getTimesheet() {
+        return plan;
     }
 
-    public void setTimesheet(Timesheet timesheet) {
-        this.timesheet = timesheet;
+    public void setTimesheet(Plan plan) {
+        this.plan = plan;
     }
 
     public ActivityTypeInfo getActivityTypeInfo() {
@@ -58,8 +65,8 @@ public class Activity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Activity activity = (Activity) o;
-        return id == activity.id;
+        EmployeeActivity employeeActivity = (EmployeeActivity) o;
+        return id == employeeActivity.id;
     }
 
     @Override

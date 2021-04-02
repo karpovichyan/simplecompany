@@ -1,23 +1,26 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "activity_type_info")
 public class ActivityTypeInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column
     private String type;
 
     @Column
     private BigDecimal ratio;
 
-    @OneToOne(mappedBy = "activityTypeInfo")
-    private Activity activity;
+    @OneToMany(mappedBy = "activityTypeInfo")
+    private Set<EmployeeActivity> employeeActivities;
 
     public BigDecimal getRatio() {
         return ratio;
@@ -25,14 +28,6 @@ public class ActivityTypeInfo {
 
     public void setRatio(BigDecimal ratio) {
         this.ratio = ratio;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 
     @Override

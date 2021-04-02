@@ -2,7 +2,7 @@ package by.intexsoft.testproject.simplecompany.service.impl;
 
 import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
-import by.intexsoft.testproject.simplecompany.entity.JobInfo;
+import by.intexsoft.testproject.simplecompany.entity.Position;
 import by.intexsoft.testproject.simplecompany.exception.PositionNotFoundException;
 import by.intexsoft.testproject.simplecompany.repository.EmployeeRepository;
 import by.intexsoft.testproject.simplecompany.repository.JobInfoRepository;
@@ -23,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void createEmployee(EmployeeDto employeeDto) {
-        Optional<JobInfo> optionalJobInfo = jobInfoRepository.findById(employeeDto.getPosition());
+        Optional<Position> optionalJobInfo = jobInfoRepository.findById(employeeDto.getPosition());
         if (!optionalJobInfo.isPresent()) {
             throw new PositionNotFoundException("Position " + employeeDto.getPosition() + " not found!");
         }

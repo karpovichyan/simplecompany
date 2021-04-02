@@ -5,7 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Timesheet {
+@Table(name = "plan")
+public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,21 +21,16 @@ public class Timesheet {
     @Column
     private int totalHours;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @OneToMany(mappedBy = "plan")
+    private Set<EmployeeActivity> employeeActivities;
 
-    @OneToMany(mappedBy = "timesheet")
-    private Set<Activity> activities;
-
-    public Timesheet(int month, int year, int totalHours, Employee employee) {
+    public Plan(int month, int year, int totalHours) {
         this.month = month;
         this.year = year;
         this.totalHours = totalHours;
-        this.employee = employee;
     }
 
-    public Timesheet() {
+    public Plan() {
     }
 
     public int getMonth() {
@@ -61,20 +57,12 @@ public class Timesheet {
         this.totalHours = totalHours;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Timesheet timesheet = (Timesheet) o;
-        return id == timesheet.id;
+        Plan plan = (Plan) o;
+        return id == plan.id;
     }
 
     @Override
