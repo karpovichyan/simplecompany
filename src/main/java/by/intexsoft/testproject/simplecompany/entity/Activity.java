@@ -1,42 +1,44 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "plan")
-public class Plan {
+@Table(name = "activity")
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
-    private LocalDate date;
+    @Enumerated(EnumType.STRING)
+    private ActivityType activityType;
 
-    @Column
-    private int totalHours;
+    @Column(nullable = false, precision = 1, scale = 1)
+    @Digits(integer = 1, fraction = 1)
+    private BigDecimal ratio;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "activity")
     private Set<EmployeeActivity> employeeActivities;
 
-    public Plan(LocalDate date, int totalHours, Set<EmployeeActivity> employeeActivities) {
-        this.date = date;
-        this.totalHours = totalHours;
-        this.employeeActivities = employeeActivities;
+    public BigDecimal getRatio() {
+        return ratio;
     }
 
-    public Plan() {
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public ActivityType getActivityType() {
+        return activityType;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
     }
 
     public Set<EmployeeActivity> getEmployeeActivities() {
@@ -47,20 +49,12 @@ public class Plan {
         this.employeeActivities = employeeActivities;
     }
 
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public void setTotalHours(int totalHours) {
-        this.totalHours = totalHours;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Plan plan = (Plan) o;
-        return id == plan.id;
+        Activity activity = (Activity) o;
+        return id == activity.id;
     }
 
     @Override
