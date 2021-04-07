@@ -18,8 +18,8 @@ public class Activity {
     @Enumerated(EnumType.STRING)
     private ActivityType activityType;
 
-    @Column(nullable = false, precision = 1, scale = 1)
-    @Digits(integer = 1, fraction = 1)
+    @Column(nullable = false, precision = 2, scale = 1)
+    @Digits(integer = 2, fraction = 1)
     private BigDecimal ratio;
 
     @OneToMany(mappedBy = "activity")

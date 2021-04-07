@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Set;
 
 public interface ContractRepository extends JpaRepository<Contract, Integer> {
-
     Set<Contract> findContractsById(Integer id);
 }

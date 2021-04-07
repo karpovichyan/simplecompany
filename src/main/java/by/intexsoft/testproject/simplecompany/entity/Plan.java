@@ -31,6 +31,14 @@ public class Plan {
     public Plan() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public LocalDate getDate() {
         return date;
     }

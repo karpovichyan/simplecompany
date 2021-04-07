@@ -14,7 +14,7 @@ class EmployeeMapperTest {
 
     @Test
     @DisplayName("Should successfully map EmployeeDto to Employee")
-    void succesfullyMapping() {
+    void successfullyMapping() {
         Position position = new Position();
         position.setId(1);
 

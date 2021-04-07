@@ -7,8 +7,7 @@ public class EmployeeDto {
     private int positionId;
     private int contractId;
 
-    public EmployeeDto(int id, String firstName, String lastName, int contractId, int positionId) {
-        this.id = id;
+    public EmployeeDto(String firstName, String lastName, int contractId, int positionId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contractId = contractId;

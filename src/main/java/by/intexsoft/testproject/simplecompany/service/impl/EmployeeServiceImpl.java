@@ -13,6 +13,9 @@ import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -46,5 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = employeeMapper.employeeDtoToEmpolyee(employeeDto, position, contract);
         employeeRepository.save(employee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        return employeeRepository.findAll()
+                .stream()
+                .map(employeeMapper::employeeToEmployeeDto)
+                .collect(Collectors.toList());
     }
 }

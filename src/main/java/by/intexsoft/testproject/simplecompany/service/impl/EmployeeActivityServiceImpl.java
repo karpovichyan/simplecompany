@@ -49,10 +49,13 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
                 orElseThrow(() -> new EmployeeNotFoundException(
                         "Employee with id = " + employeeActivityDto.getEmployeeId() + " not found!"));
 
-        Activity activity = activityRepository.findById(employeeActivityDto.getActivityId()).
-                orElseThrow(() -> new ActivityNotFoundException(
-                        "Activity with id = " + employeeActivityDto.getActivityId() + " not found!")
-                );
+        Activity activity = null;
+        if (employeeActivityDto.getActivityId() != null) {
+            activity = activityRepository.findById(employeeActivityDto.getActivityId()).
+                    orElseThrow(() -> new ActivityNotFoundException(
+                            "Activity with id = " + employeeActivityDto.getActivityId() + " not found!")
+                    );
+        }
 
         EmployeeActivity employeeActivity = employeeActivityMapper.toEntity(employeeActivityDto, plan, employee, activity);
         employeeActivityRepository.save(employeeActivity);
