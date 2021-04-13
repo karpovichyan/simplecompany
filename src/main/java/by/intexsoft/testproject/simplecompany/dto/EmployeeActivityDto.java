@@ -5,9 +5,9 @@ public class EmployeeActivityDto {
     private int hours;
     private int planId;
     private int employeeId;
-    private int activityId;
+    private Integer activityId;
 
-    public EmployeeActivityDto(int id, int hours, int planId, int employeeId, int activityId) {
+    public EmployeeActivityDto(int id, int hours, int planId, int employeeId, Integer activityId) {
         this.id = id;
         this.hours = hours;
         this.planId = planId;
@@ -47,11 +47,11 @@ public class EmployeeActivityDto {
         this.employeeId = employeeId;
     }
 
-    public int getActivityId() {
+    public Integer getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(int activityId) {
+    public void setActivityId(Integer activityId) {
         this.activityId = activityId;
     }
 }

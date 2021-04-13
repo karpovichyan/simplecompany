@@ -11,4 +11,10 @@ import org.mapstruct.Mapping;
 public interface EmployeeMapper {
     @Mapping(source = "employeeDto.id", target = "id")
     Employee employeeDtoToEmpolyee(EmployeeDto employeeDto, Position position, Contract contract);
+
+
+    @Mapping(source = "employee.id", target = "id")
+    @Mapping(source = "employee.position.id", target = "positionId")
+    @Mapping(source = "employee.contract.id", target = "contractId")
+    EmployeeDto employeeToEmployeeDto(Employee employee);
 }

@@ -17,7 +17,7 @@ public class PlanController {
     }
 
     @PostMapping
-    public void createTimesheet(@RequestBody PlanDto planDto) {
+    public void createPlan(@RequestBody PlanDto planDto) {
         planService.createPlan(planDto);
     }
 }
