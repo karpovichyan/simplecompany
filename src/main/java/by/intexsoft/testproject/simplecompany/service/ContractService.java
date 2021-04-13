@@ -8,9 +8,11 @@ import java.util.Set;
 public interface ContractService {
     ContractDto createContract(ContractDto contractDto);
 
-    Set<ContractDto> getContractByIds(Integer contractId);
+    Set<ContractDto> getContractByIds(List<Integer> contractId);
 
     ContractDto getContractInfo(Integer contractId);
 
     List<ContractDto> getAllContracts();
+
+    void deleteContract(Integer contractId);
 }

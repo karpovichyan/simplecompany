@@ -16,6 +16,9 @@ import by.intexsoft.testproject.simplecompany.repository.PlanRepository;
 import by.intexsoft.testproject.simplecompany.service.EmployeeActivityService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class EmployeeActivityServiceImpl implements EmployeeActivityService {
     private final EmployeeActivityRepository employeeActivityRepository;
@@ -59,5 +62,13 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
 
         EmployeeActivity employeeActivity = employeeActivityMapper.toEntity(employeeActivityDto, plan, employee, activity);
         employeeActivityRepository.save(employeeActivity);
+    }
+
+    @Override
+    public List<EmployeeActivityDto> getAllEmployeeActivities() {
+        return employeeActivityRepository.findAll()
+                .stream()
+                .map(employeeActivityMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

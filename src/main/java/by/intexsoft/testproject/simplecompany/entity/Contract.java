@@ -14,7 +14,7 @@ public class Contract {
     @Column
     private LocalDate date;
 
-    @OneToOne(mappedBy = "contract")
+    @OneToOne(mappedBy = "contract", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Employee employee;
 
     public Contract(LocalDate date) {

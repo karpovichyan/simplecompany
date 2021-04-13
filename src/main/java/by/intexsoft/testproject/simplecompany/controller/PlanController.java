@@ -2,10 +2,9 @@ package by.intexsoft.testproject.simplecompany.controller;
 
 import by.intexsoft.testproject.simplecompany.dto.PlanDto;
 import by.intexsoft.testproject.simplecompany.service.PlanService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/plans")
@@ -19,5 +18,10 @@ public class PlanController {
     @PostMapping
     public void createPlan(@RequestBody PlanDto planDto) {
         planService.createPlan(planDto);
+    }
+
+    @GetMapping
+    public List<PlanDto> getAllPlans() {
+        return planService.getAllPlans();
     }
 }

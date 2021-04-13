@@ -21,18 +21,23 @@ public class ContractController {
         return contractService.createContract(contractDto);
     }
 
-    @GetMapping("/ids")
-    public Set<ContractDto> getContractByIds(@RequestParam Integer contractId) {
-        return contractService.getContractByIds(contractId);
-    }
-
     @GetMapping
     public List<ContractDto> getAllContracts() {
         return contractService.getAllContracts();
     }
 
+    @GetMapping("/ids")
+    public Set<ContractDto> getContractByIds(@RequestParam List<Integer> contractId) {
+        return contractService.getContractByIds(contractId);
+    }
+
     @GetMapping(path = "/{contractId}")
     public ContractDto getContractInfo(@PathVariable Integer contractId) {
         return contractService.getContractInfo(contractId);
+    }
+
+    @DeleteMapping
+    public void deleteContract(@RequestParam Integer contractId) {
+        contractService.deleteContract(contractId);
     }
 }

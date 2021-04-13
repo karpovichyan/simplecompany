@@ -7,6 +7,9 @@ import by.intexsoft.testproject.simplecompany.repository.PlanRepository;
 import by.intexsoft.testproject.simplecompany.service.PlanService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PlanServiceImpl implements PlanService {
     private final PlanRepository planRepository;
@@ -19,6 +22,14 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void createPlan(PlanDto planDto) {
-        planRepository.save(planMapper.PlanDtoToPlan(planDto));
+        planRepository.save(planMapper.planDtoToPlan(planDto));
+    }
+
+    @Override
+    public List<PlanDto> getAllPlans() {
+        return planRepository.findAll()
+                .stream()
+                .map(planMapper::planToPlanDto)
+                .collect(Collectors.toList());
     }
 }

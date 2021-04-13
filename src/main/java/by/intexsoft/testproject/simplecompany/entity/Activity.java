@@ -25,6 +25,23 @@ public class Activity {
     @OneToMany(mappedBy = "activity")
     private Set<EmployeeActivity> employeeActivities;
 
+    public Activity(ActivityType activityType, BigDecimal ratio, Set<EmployeeActivity> employeeActivities) {
+        this.activityType = activityType;
+        this.ratio = ratio;
+        this.employeeActivities = employeeActivities;
+    }
+
+    public Activity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public BigDecimal getRatio() {
         return ratio;
     }

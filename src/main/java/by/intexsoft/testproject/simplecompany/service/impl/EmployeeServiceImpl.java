@@ -1,5 +1,7 @@
 package by.intexsoft.testproject.simplecompany.service.impl;
 
+import by.intexsoft.testproject.simplecompany.controller.param.DeleteEmployeeRequestParam;
+import by.intexsoft.testproject.simplecompany.controller.param.GetEmployeeRequestParam;
 import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 import by.intexsoft.testproject.simplecompany.entity.Contract;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
@@ -12,6 +14,7 @@ import by.intexsoft.testproject.simplecompany.repository.EmployeeRepository;
 import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.EmployeeService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,5 +60,89 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .stream()
                 .map(employeeMapper::employeeToEmployeeDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDto> getEmployees(GetEmployeeRequestParam getEmployeeRequestParam) {
+        boolean isFirstName = getEmployeeRequestParam.getFirstName() != null
+                && getEmployeeRequestParam.getLastName() == null
+                && getEmployeeRequestParam.getPosition() == null;
+        if (isFirstName) {
+            return employeeRepository.findAllByFirstName(getEmployeeRequestParam.getFirstName())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+
+        boolean isLastName = getEmployeeRequestParam.getFirstName() == null
+                && getEmployeeRequestParam.getLastName() != null
+                && getEmployeeRequestParam.getPosition() == null;
+        if (isLastName) {
+            return employeeRepository.findAllByLastName(getEmployeeRequestParam.getLastName())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+
+        boolean isPosition = getEmployeeRequestParam.getFirstName() == null
+                && getEmployeeRequestParam.getLastName() == null
+                && getEmployeeRequestParam.getPosition() != null;
+        if (isPosition) {
+            return employeeRepository.findAllByPositionName(getEmployeeRequestParam.getPosition())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+
+        boolean isFirstNameLastName = getEmployeeRequestParam.getFirstName() != null
+                && getEmployeeRequestParam.getLastName() != null
+                && getEmployeeRequestParam.getPosition() == null;
+        if (isFirstNameLastName) {
+            return employeeRepository.findAllByFirstNameAndLastName(getEmployeeRequestParam.getFirstName(),
+                    getEmployeeRequestParam.getLastName())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+
+        boolean isFirstNamePosition = getEmployeeRequestParam.getFirstName() != null
+                && getEmployeeRequestParam.getLastName() == null
+                && getEmployeeRequestParam.getPosition() != null;
+        if (isFirstNamePosition) {
+            return employeeRepository.findAllByFirstNameAndPositionName(getEmployeeRequestParam.getFirstName(),
+                    getEmployeeRequestParam.getPosition())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+
+        boolean isLastNamePosition = getEmployeeRequestParam.getFirstName() == null
+                && getEmployeeRequestParam.getLastName() != null
+                && getEmployeeRequestParam.getPosition() != null;
+        if (isLastNamePosition) {
+            return employeeRepository.findAllByLastNameAndPositionName(getEmployeeRequestParam.getLastName(),
+                    getEmployeeRequestParam.getPosition())
+                    .stream()
+                    .map(employeeMapper::employeeToEmployeeDto)
+                    .collect(Collectors.toList());
+        }
+        return employeeRepository.findAllByFirstNameAndLastNameAndPositionName(getEmployeeRequestParam.getFirstName(),
+                getEmployeeRequestParam.getLastName(),
+                getEmployeeRequestParam.getPosition())
+                .stream()
+                .map(employeeMapper::employeeToEmployeeDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteEmployee(Integer employeeId) {
+        employeeRepository.deleteById(employeeId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteEmployeeByFullName(DeleteEmployeeRequestParam deleteEmployeeRequestParam) {
+        employeeRepository.deleteByFirstNameAndLastName(deleteEmployeeRequestParam.getFirstName(),
+                deleteEmployeeRequestParam.getLastName());
     }
 }

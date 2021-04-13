@@ -1,5 +1,7 @@
 package by.intexsoft.testproject.simplecompany.controller;
 
+import by.intexsoft.testproject.simplecompany.controller.param.DeleteEmployeeRequestParam;
+import by.intexsoft.testproject.simplecompany.controller.param.GetEmployeeRequestParam;
 import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 import by.intexsoft.testproject.simplecompany.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +25,20 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeDto> getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+
+    @GetMapping("/params")
+    public List<EmployeeDto> getEmployees(GetEmployeeRequestParam getEmployeeRequestParam) {
+        return employeeService.getEmployees(getEmployeeRequestParam);
+    }
+
+    @DeleteMapping("/id")
+    public void deleteEmployee(@RequestParam Integer employeeId) {
+        employeeService.deleteEmployee(employeeId);
+    }
+
+    @DeleteMapping
+    public void deleteEmployeeByFullName(DeleteEmployeeRequestParam deleteEmployeeRequestParam) {
+        employeeService.deleteEmployeeByFullName(deleteEmployeeRequestParam);
     }
 }

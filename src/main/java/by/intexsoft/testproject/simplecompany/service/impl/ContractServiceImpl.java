@@ -29,8 +29,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Set<ContractDto> getContractByIds(Integer contractId) {
-        return contractRepository.findContractsById(contractId)
+    public Set<ContractDto> getContractByIds(List<Integer> contractId) {
+        return contractRepository.findContractByIdIn(contractId)
                 .stream()
                 .map(contractMapper::contractToContractDto)
                 .collect(Collectors.toSet());
@@ -46,8 +46,14 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDto getContractInfo(Integer contractId) {
-        Contract contract = contractRepository.findById(contractId).orElseThrow(() -> new ContractNotFoundException("Contract " + contractId + " not found"));
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
         return contractMapper.contractToContractDto(contract);
+    }
+
+    @Override
+    public void deleteContract(Integer contractId) {
+        contractRepository.deleteById(contractId);
     }
 }
 

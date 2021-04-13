@@ -17,4 +17,10 @@ public interface EmployeeActivityMapper {
             Employee employee,
             Activity activity
     );
+
+    @Mapping(source = "employeeActivity.id", target = "id")
+    @Mapping(source = "employeeActivity.plan.id", target = "planId")
+    @Mapping(source = "employeeActivity.employee.id", target = "employeeId")
+    @Mapping(source = "employeeActivity.activity.id", target = "activityId")
+    EmployeeActivityDto toDto(EmployeeActivity employeeActivity);
 }
