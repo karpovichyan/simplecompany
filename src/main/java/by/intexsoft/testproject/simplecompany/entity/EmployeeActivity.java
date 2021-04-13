@@ -2,7 +2,6 @@ package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "employee_activity")
@@ -24,17 +23,25 @@ public class EmployeeActivity {
     private Plan plan;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private ActivityTypeInfo activityTypeInfo;
+    @JoinColumn(name = "activity_id")
+    private Activity activity;
 
-    public EmployeeActivity(int hours, Employee employee, Plan plan, ActivityTypeInfo activityTypeInfo) {
+    public EmployeeActivity(int hours, Employee employee, Plan plan, Activity activity) {
         this.hours = hours;
         this.employee = employee;
         this.plan = plan;
-        this.activityTypeInfo = activityTypeInfo;
+        this.activity = activity;
     }
 
     public EmployeeActivity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getHours() {
@@ -45,28 +52,36 @@ public class EmployeeActivity {
         this.hours = hours;
     }
 
-    public Plan getTimesheet() {
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Plan getPlan() {
         return plan;
     }
 
-    public void setTimesheet(Plan plan) {
+    public void setPlan(Plan plan) {
         this.plan = plan;
     }
 
-    public ActivityTypeInfo getActivityTypeInfo() {
-        return activityTypeInfo;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setActivityTypeInfo(ActivityTypeInfo activityTypeInfo) {
-        this.activityTypeInfo = activityTypeInfo;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EmployeeActivity employeeActivity = (EmployeeActivity) o;
-        return id == employeeActivity.id;
+        EmployeeActivity that = (EmployeeActivity) o;
+        return id == that.id;
     }
 
     @Override

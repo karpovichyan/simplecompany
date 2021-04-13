@@ -21,16 +21,30 @@ public class Employee {
     @JoinColumn(name = "position_id")
     private Position position;
 
+    @OneToOne
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
+
     @OneToMany(mappedBy = "employee")
     private Set<EmployeeActivity> employeeActivities;
 
-    public Employee(String firstName, String lastName, Position position) {
+
+    public Employee(String firstName, String lastName, Position position, Contract contract) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
+        this.contract = contract;
     }
 
     public Employee() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -49,12 +63,28 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Position getJobInfo() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setJobInfo(Position position) {
+    public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public Set<EmployeeActivity> getEmployeeActivities() {
+        return employeeActivities;
+    }
+
+    public void setEmployeeActivities(Set<EmployeeActivity> employeeActivities) {
+        this.employeeActivities = employeeActivities;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 
     @Override

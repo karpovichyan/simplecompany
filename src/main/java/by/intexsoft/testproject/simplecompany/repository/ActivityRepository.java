@@ -1,7 +1,7 @@
 package by.intexsoft.testproject.simplecompany.repository;
 
-import by.intexsoft.testproject.simplecompany.entity.EmployeeActivity;
+import by.intexsoft.testproject.simplecompany.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ActivityRepository extends JpaRepository<EmployeeActivity, Integer> {
+public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 }

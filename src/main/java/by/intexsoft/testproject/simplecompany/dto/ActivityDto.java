@@ -1,24 +1,37 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import by.intexsoft.testproject.simplecompany.entity.ActivityType;
+
+import java.math.BigDecimal;
+
 public class ActivityDto {
     private int id;
-    private int hours;
-    private String type;
+    private ActivityType activityType;
+    private BigDecimal ratio;
 
-    public ActivityDto(int hours, String type) {
-        this.hours = hours;
-        this.type = type;
+    public ActivityDto(int id, ActivityType activityType, BigDecimal ratio) {
+        this.id = id;
+        this.activityType = activityType;
+        this.ratio = ratio;
     }
 
     public ActivityDto() {
     }
 
-    public String getType() {
-        return type;
+    public ActivityType getActivityType() {
+        return activityType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
+    }
+
+    public BigDecimal getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
     }
 
     public int getId() {
@@ -27,13 +40,5 @@ public class ActivityDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
     }
 }
