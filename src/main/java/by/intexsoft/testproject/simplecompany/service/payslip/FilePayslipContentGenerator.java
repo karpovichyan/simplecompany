@@ -31,6 +31,7 @@ public class FilePayslipContentGenerator implements PayslipContentGenerator {
         double quotient = totalHours - sumOfAllActivity;
         int salary = employeeActivity.getEmployee().getPosition().getSalary();
         double result = (quotient * salary) / totalHours;
+
         return Math.round(result * 100) / 100D;
     }
 }

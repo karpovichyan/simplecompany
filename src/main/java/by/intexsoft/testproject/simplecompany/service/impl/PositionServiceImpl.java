@@ -1,6 +1,8 @@
 package by.intexsoft.testproject.simplecompany.service.impl;
 
 import by.intexsoft.testproject.simplecompany.dto.PositionDto;
+import by.intexsoft.testproject.simplecompany.entity.Position;
+import by.intexsoft.testproject.simplecompany.exception.PlanNotFoundException;
 import by.intexsoft.testproject.simplecompany.mapper.PositionMapper;
 import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.PositionService;
@@ -30,5 +32,14 @@ public class PositionServiceImpl implements PositionService {
                 .stream()
                 .map(positionMapper::positionToPositionDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updatePosition(PositionDto positionDto, Integer positionId) {
+        Position position = positionRepository.findById(positionId)
+                .orElseThrow(() -> new PlanNotFoundException("Position with id = " + positionId + " not found"));
+        position.setName(positionDto.getName());
+        position.setSalary(positionDto.getSalary());
+        positionRepository.save(position);
     }
 }

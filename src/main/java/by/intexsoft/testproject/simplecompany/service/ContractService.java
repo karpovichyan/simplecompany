@@ -10,9 +10,11 @@ public interface ContractService {
 
     Set<ContractDto> getContractByIds(List<Integer> contractId);
 
-    ContractDto getContractInfo(Integer contractId);
+    ContractDto getContract(Integer contractId);
 
     List<ContractDto> getAllContracts();
 
     void deleteContract(Integer contractId);
+
+    void updateContract(ContractDto contractDto, Integer contractId);
 }

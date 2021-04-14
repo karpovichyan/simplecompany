@@ -7,7 +7,5 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface PlanRepository extends JpaRepository<Plan, Integer> {
-    Plan findByTotalHoursAndDate(int totalHours, LocalDate date);
-
     Optional<Plan> findByDate(LocalDate date);
 }

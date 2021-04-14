@@ -14,9 +14,6 @@ public class Contract {
     @Column
     private LocalDate date;
 
-    @OneToOne(mappedBy = "contract", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Employee employee;
-
     public Contract(LocalDate date) {
         this.date = date;
     }
@@ -38,14 +35,6 @@ public class Contract {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     @Override

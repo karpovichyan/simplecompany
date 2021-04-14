@@ -43,21 +43,19 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
 
     @Override
     public void createEmployeeActivity(EmployeeActivityDto employeeActivityDto) {
-        Plan plan = planRepository.findById(employeeActivityDto.getPlanId()).
-                orElseThrow(() -> new PlanNotFoundException(
-                        "Plan with id = " + employeeActivityDto.getPlanId() + " not found!")
-                );
+        Plan plan = planRepository.findById(employeeActivityDto.getPlanId())
+                .orElseThrow(() -> new PlanNotFoundException(
+                        "Plan with id = " + employeeActivityDto.getPlanId() + " not found!"));
 
-        Employee employee = employeeRepository.findById(employeeActivityDto.getEmployeeId()).
-                orElseThrow(() -> new EmployeeNotFoundException(
+        Employee employee = employeeRepository.findById(employeeActivityDto.getEmployeeId())
+                .orElseThrow(() -> new EmployeeNotFoundException(
                         "Employee with id = " + employeeActivityDto.getEmployeeId() + " not found!"));
 
         Activity activity = null;
         if (employeeActivityDto.getActivityId() != null) {
-            activity = activityRepository.findById(employeeActivityDto.getActivityId()).
-                    orElseThrow(() -> new ActivityNotFoundException(
-                            "Activity with id = " + employeeActivityDto.getActivityId() + " not found!")
-                    );
+            activity = activityRepository.findById(employeeActivityDto.getActivityId())
+                    .orElseThrow(() -> new ActivityNotFoundException(
+                            "Activity with id = " + employeeActivityDto.getActivityId() + " not found!"));
         }
 
         EmployeeActivity employeeActivity = employeeActivityMapper.toEntity(employeeActivityDto, plan, employee, activity);

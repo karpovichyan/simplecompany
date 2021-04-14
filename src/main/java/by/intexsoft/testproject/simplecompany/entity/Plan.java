@@ -19,7 +19,7 @@ public class Plan {
     @Column
     private int totalHours;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private Set<EmployeeActivity> employeeActivities;
 
     public Plan(LocalDate date, int totalHours, Set<EmployeeActivity> employeeActivities) {

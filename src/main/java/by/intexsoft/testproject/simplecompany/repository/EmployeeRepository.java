@@ -7,8 +7,6 @@ import java.util.List;
 
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    Employee findByFirstNameAndLastName(String firstName, String lastName);
-
     void deleteByFirstNameAndLastName(String firstName, String lastName);
 
     List<Employee> findAllByFirstName(String firstName);

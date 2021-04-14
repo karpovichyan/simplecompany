@@ -18,6 +18,14 @@ public class ActivityDto {
     public ActivityDto() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public ActivityType getActivityType() {
         return activityType;
     }
@@ -32,13 +40,5 @@ public class ActivityDto {
 
     public void setRatio(BigDecimal ratio) {
         this.ratio = ratio;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

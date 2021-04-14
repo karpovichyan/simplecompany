@@ -8,4 +8,6 @@ public interface PositionService {
     void createPosition(PositionDto positionDto);
 
     List<PositionDto> getAllPositions();
+
+    void updatePosition(PositionDto positionDto, Integer positionId);
 }

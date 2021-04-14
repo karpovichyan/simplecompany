@@ -23,22 +23,22 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<EmployeeDto> getAllEmployees() {
-        return employeeService.getAllEmployees();
-    }
-
-    @GetMapping("/params")
     public List<EmployeeDto> getEmployees(GetEmployeeRequestParam getEmployeeRequestParam) {
         return employeeService.getEmployees(getEmployeeRequestParam);
     }
 
-    @DeleteMapping("/id")
-    public void deleteEmployee(@RequestParam Integer employeeId) {
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployee(@PathVariable Integer employeeId) {
         employeeService.deleteEmployee(employeeId);
     }
 
     @DeleteMapping
     public void deleteEmployeeByFullName(DeleteEmployeeRequestParam deleteEmployeeRequestParam) {
         employeeService.deleteEmployeeByFullName(deleteEmployeeRequestParam);
+    }
+
+    @PutMapping("/{employeeId}")
+    public void updateEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable Integer employeeId) {
+        employeeService.updateEmployee(employeeDto, employeeId);
     }
 }

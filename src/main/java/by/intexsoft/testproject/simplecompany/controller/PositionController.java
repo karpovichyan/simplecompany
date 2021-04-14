@@ -24,4 +24,9 @@ public class PositionController {
     public List<PositionDto> getAllPositions() {
         return positionService.getAllPositions();
     }
+
+    @PutMapping("/{positionId}")
+    public void updatePosition(@RequestBody PositionDto positionDto, @PathVariable Integer positionId) {
+        positionService.updatePosition(positionDto, positionId);
+    }
 }

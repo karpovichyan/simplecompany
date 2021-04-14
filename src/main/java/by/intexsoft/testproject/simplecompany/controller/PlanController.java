@@ -24,4 +24,19 @@ public class PlanController {
     public List<PlanDto> getAllPlans() {
         return planService.getAllPlans();
     }
+
+    @GetMapping("/{planId}")
+    public PlanDto getPlan(@PathVariable Integer planId) {
+        return planService.getPlan(planId);
+    }
+
+    @DeleteMapping("/{planId}")
+    public void deletePlan(@PathVariable Integer planId) {
+        planService.deletePlan(planId);
+    }
+
+    @PutMapping("/{planId}")
+    public void updatePlan(@RequestBody PlanDto planDto, @PathVariable Integer planId) {
+        planService.updatePlan(planDto, planId);
+    }
 }

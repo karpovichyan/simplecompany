@@ -32,12 +32,17 @@ public class ContractController {
     }
 
     @GetMapping(path = "/{contractId}")
-    public ContractDto getContractInfo(@PathVariable Integer contractId) {
-        return contractService.getContractInfo(contractId);
+    public ContractDto getContract(@PathVariable Integer contractId) {
+        return contractService.getContract(contractId);
     }
 
-    @DeleteMapping
-    public void deleteContract(@RequestParam Integer contractId) {
+    @DeleteMapping("/{contractId}")
+    public void deleteContract(@PathVariable Integer contractId) {
         contractService.deleteContract(contractId);
+    }
+
+    @PutMapping("/{contractId}")
+    public void updateContract(@RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
+        contractService.updateContract(contractDto, contractId);
     }
 }

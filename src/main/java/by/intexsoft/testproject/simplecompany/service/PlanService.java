@@ -8,4 +8,10 @@ public interface PlanService {
     void createPlan(PlanDto planDto);
 
     List<PlanDto> getAllPlans();
+
+    void deletePlan(Integer planId);
+
+    PlanDto getPlan(Integer planId);
+
+    void updatePlan(PlanDto planDto, Integer planId);
 }

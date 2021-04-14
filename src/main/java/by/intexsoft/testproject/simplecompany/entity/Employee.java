@@ -28,7 +28,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private Set<EmployeeActivity> employeeActivities;
 
-
     public Employee(String firstName, String lastName, Position position, Contract contract) {
         this.firstName = firstName;
         this.lastName = lastName;

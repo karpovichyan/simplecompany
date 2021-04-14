@@ -45,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ContractDto getContractInfo(Integer contractId) {
+    public ContractDto getContract(Integer contractId) {
         Contract contract = contractRepository.findById(contractId)
                 .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
         return contractMapper.contractToContractDto(contract);
@@ -54,6 +54,14 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public void deleteContract(Integer contractId) {
         contractRepository.deleteById(contractId);
+    }
+
+    @Override
+    public void updateContract(ContractDto contractDto, Integer contractId) {
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
+        contract.setDate(contractDto.getDate());
+        contractRepository.save(contract);
     }
 }
 
