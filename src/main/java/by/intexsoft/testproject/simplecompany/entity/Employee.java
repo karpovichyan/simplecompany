@@ -5,11 +5,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String firstName;
@@ -18,11 +17,9 @@ public class Employee {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id")
     private Position position;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "contract_id")
     private Contract contract;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
@@ -38,11 +35,11 @@ public class Employee {
     public Employee() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,7 +88,7 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id;
+        return id.equals(employee.id);
     }
 
     @Override

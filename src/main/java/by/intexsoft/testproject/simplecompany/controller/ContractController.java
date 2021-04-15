@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/contracts")
+@RequestMapping("contracts")
 public class ContractController {
     private final ContractService contractService;
 
@@ -17,32 +17,32 @@ public class ContractController {
     }
 
     @PostMapping
-    public ContractDto createContract(@RequestBody ContractDto contractDto) {
-        return contractService.createContract(contractDto);
+    public ContractDto create(@RequestBody ContractDto contractDto) {
+        return contractService.create(contractDto);
     }
 
     @GetMapping
-    public List<ContractDto> getAllContracts() {
-        return contractService.getAllContracts();
+    public List<ContractDto> getAll() {
+        return contractService.getAll();
     }
 
     @GetMapping("/ids")
-    public Set<ContractDto> getContractByIds(@RequestParam List<Integer> contractId) {
-        return contractService.getContractByIds(contractId);
+    public Set<ContractDto> getByIds(@RequestParam List<Integer> contractIds) {
+        return contractService.getByIds(contractIds);
     }
 
     @GetMapping(path = "/{contractId}")
-    public ContractDto getContract(@PathVariable Integer contractId) {
-        return contractService.getContract(contractId);
+    public ContractDto get(@PathVariable Integer contractId) {
+        return contractService.get(contractId);
     }
 
     @DeleteMapping("/{contractId}")
-    public void deleteContract(@PathVariable Integer contractId) {
-        contractService.deleteContract(contractId);
+    public void delete(@PathVariable Integer contractId) {
+        contractService.delete(contractId);
     }
 
     @PutMapping("/{contractId}")
-    public void updateContract(@RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
-        contractService.updateContract(contractDto, contractId);
+    public void update(@RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
+        contractService.update(contractDto, contractId);
     }
 }

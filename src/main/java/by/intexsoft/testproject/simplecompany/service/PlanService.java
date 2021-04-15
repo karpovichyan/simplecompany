@@ -5,13 +5,13 @@ import by.intexsoft.testproject.simplecompany.dto.PlanDto;
 import java.util.List;
 
 public interface PlanService {
-    void createPlan(PlanDto planDto);
+    PlanDto create(PlanDto planDto);
 
-    List<PlanDto> getAllPlans();
+    List<PlanDto> getAll();
 
-    void deletePlan(Integer planId);
+    void delete(Integer planId);
 
-    PlanDto getPlan(Integer planId);
+    PlanDto get(Integer planId);
 
-    void updatePlan(PlanDto planDto, Integer planId);
+    void update(PlanDto planDto, Integer planId);
 }

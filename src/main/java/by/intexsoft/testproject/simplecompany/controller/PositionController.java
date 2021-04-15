@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/positions")
+@RequestMapping("positions")
 public class PositionController {
     private final PositionService positionService;
 
@@ -16,17 +16,17 @@ public class PositionController {
     }
 
     @PostMapping
-    public void createPosition(@RequestBody PositionDto positionDto) {
-        positionService.createPosition(positionDto);
+    public PositionDto create(@RequestBody PositionDto positionDto) {
+        return positionService.create(positionDto);
     }
 
     @GetMapping
-    public List<PositionDto> getAllPositions() {
-        return positionService.getAllPositions();
+    public List<PositionDto> getAll() {
+        return positionService.getAll();
     }
 
     @PutMapping("/{positionId}")
-    public void updatePosition(@RequestBody PositionDto positionDto, @PathVariable Integer positionId) {
-        positionService.updatePosition(positionDto, positionId);
+    public void update(@RequestBody PositionDto positionDto, @PathVariable Integer positionId) {
+        positionService.update(positionDto, positionId);
     }
 }

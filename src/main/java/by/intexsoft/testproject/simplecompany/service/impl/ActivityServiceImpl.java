@@ -1,6 +1,7 @@
 package by.intexsoft.testproject.simplecompany.service.impl;
 
 import by.intexsoft.testproject.simplecompany.dto.ActivityDto;
+import by.intexsoft.testproject.simplecompany.entity.Activity;
 import by.intexsoft.testproject.simplecompany.mapper.ActivityMapper;
 import by.intexsoft.testproject.simplecompany.repository.ActivityRepository;
 import by.intexsoft.testproject.simplecompany.service.ActivityService;
@@ -20,15 +21,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void createActivity(ActivityDto activityDto) {
-        activityRepository.save(activityMapper.activityDtoToActivity(activityDto));
+    public ActivityDto create(ActivityDto activityDto) {
+        Activity activity = activityMapper.toEntity(activityDto);
+        return activityMapper.toDto(activity);
     }
 
     @Override
-    public List<ActivityDto> getAllActivities() {
+    public List<ActivityDto> getAll() {
         return activityRepository.findAll()
                 .stream()
-                .map(activityMapper::activityToActivityDto)
+                .map(activityMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

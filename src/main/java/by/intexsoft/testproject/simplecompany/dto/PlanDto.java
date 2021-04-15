@@ -3,11 +3,11 @@ package by.intexsoft.testproject.simplecompany.dto;
 import java.time.LocalDate;
 
 public class PlanDto {
-    private int id;
+    private Integer id;
     private LocalDate date;
-    private int totalHours;
+    private Integer totalHours;
 
-    public PlanDto(int id, LocalDate date, int totalHours) {
+    public PlanDto(Integer id, LocalDate date, Integer totalHours) {
         this.id = id;
         this.date = date;
         this.totalHours = totalHours;
@@ -16,12 +16,20 @@ public class PlanDto {
     public PlanDto() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
+    }
+
+    public Integer getTotalHours() {
+        return totalHours;
     }
 
     public LocalDate getDate() {
@@ -30,13 +38,5 @@ public class PlanDto {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public void setTotalHours(int totalHours) {
-        this.totalHours = totalHours;
     }
 }

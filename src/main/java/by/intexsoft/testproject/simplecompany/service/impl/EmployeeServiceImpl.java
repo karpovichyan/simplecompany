@@ -1,7 +1,6 @@
 package by.intexsoft.testproject.simplecompany.service.impl;
 
-import by.intexsoft.testproject.simplecompany.controller.param.DeleteEmployeeRequestParam;
-import by.intexsoft.testproject.simplecompany.controller.param.GetEmployeeRequestParam;
+import by.intexsoft.testproject.simplecompany.controller.param.EmployeeRequestParam;
 import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 import by.intexsoft.testproject.simplecompany.entity.Contract;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
@@ -15,7 +14,6 @@ import by.intexsoft.testproject.simplecompany.repository.EmployeeRepository;
 import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.EmployeeService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void createEmployee(EmployeeDto employeeDto) {
+    public EmployeeDto create(EmployeeDto employeeDto) {
         Position position = positionRepository.findById(employeeDto.getPositionId())
                 .orElseThrow(() -> new PositionNotFoundException(
                         "Position with id: " + employeeDto.getPositionId() + " not found!"));
@@ -49,19 +47,19 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new ContractNotFoundException(
                         "Contract with id: " + employeeDto.getContractId() + " not found!"));
 
-        Employee employee = employeeMapper.employeeDtoToEmpolyee(employeeDto, position, contract);
-        employeeRepository.save(employee);
+        Employee employee = employeeMapper.toEntity(employeeDto, position, contract);
+        return employeeMapper.toDto(employeeRepository.save(employee));
     }
 
     @Override
-    public List<EmployeeDto> getEmployees(GetEmployeeRequestParam getEmployeeRequestParam) {
+    public List<EmployeeDto> get(EmployeeRequestParam getEmployeeRequestParam) {
         boolean isFirstName = getEmployeeRequestParam.getFirstName() != null
                 && getEmployeeRequestParam.getLastName() == null
                 && getEmployeeRequestParam.getPosition() == null;
         if (isFirstName) {
             return employeeRepository.findAllByFirstName(getEmployeeRequestParam.getFirstName())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -71,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (isLastName) {
             return employeeRepository.findAllByLastName(getEmployeeRequestParam.getLastName())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -81,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (isPosition) {
             return employeeRepository.findAllByPositionName(getEmployeeRequestParam.getPosition())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -92,7 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employeeRepository.findAllByFirstNameAndLastName(getEmployeeRequestParam.getFirstName(),
                     getEmployeeRequestParam.getLastName())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -103,7 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employeeRepository.findAllByFirstNameAndPositionName(getEmployeeRequestParam.getFirstName(),
                     getEmployeeRequestParam.getPosition())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -114,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employeeRepository.findAllByLastNameAndPositionName(getEmployeeRequestParam.getLastName(),
                     getEmployeeRequestParam.getPosition())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
@@ -126,30 +124,23 @@ public class EmployeeServiceImpl implements EmployeeService {
                     getEmployeeRequestParam.getLastName(),
                     getEmployeeRequestParam.getPosition())
                     .stream()
-                    .map(employeeMapper::employeeToEmployeeDto)
+                    .map(employeeMapper::toDto)
                     .collect(Collectors.toList());
         }
 
         return employeeRepository.findAll()
                 .stream()
-                .map(employeeMapper::employeeToEmployeeDto)
+                .map(employeeMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteEmployee(Integer employeeId) {
+    public void delete(Integer employeeId) {
         employeeRepository.deleteById(employeeId);
     }
 
     @Override
-    @Transactional
-    public void deleteEmployeeByFullName(DeleteEmployeeRequestParam deleteEmployeeRequestParam) {
-        employeeRepository.deleteByFirstNameAndLastName(deleteEmployeeRequestParam.getFirstName(),
-                deleteEmployeeRequestParam.getLastName());
-    }
-
-    @Override
-    public void updateEmployee(EmployeeDto employeeDto, Integer employeeId) {
+    public void update(EmployeeDto employeeDto, Integer employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee with id = " + employeeId + " not found"));
 

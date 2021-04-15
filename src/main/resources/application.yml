@@ -1,9 +1,11 @@
 app:
   payslip:
     path: /home/INTEXSOFT/yan.karpovich/Documents/Payslips
-    fileNamePrefix: payslip
-    fileExtension: txt
-
+    file-name-prefix: payslip
+    file-extension: txt
+server:
+  servlet:
+    context-path: /api
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres

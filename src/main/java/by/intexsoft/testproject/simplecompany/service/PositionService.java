@@ -5,9 +5,9 @@ import by.intexsoft.testproject.simplecompany.dto.PositionDto;
 import java.util.List;
 
 public interface PositionService {
-    void createPosition(PositionDto positionDto);
+    PositionDto create(PositionDto positionDto);
 
-    List<PositionDto> getAllPositions();
+    List<PositionDto> getAll();
 
-    void updatePosition(PositionDto positionDto, Integer positionId);
+    void update(PositionDto positionDto, Integer positionId);
 }

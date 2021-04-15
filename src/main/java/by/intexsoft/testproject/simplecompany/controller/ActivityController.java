@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/activities")
+@RequestMapping("activities")
 public class ActivityController {
     private final ActivityService activityService;
 
@@ -16,12 +16,12 @@ public class ActivityController {
     }
 
     @PostMapping
-    public void createActivity(@RequestBody ActivityDto activityDto) {
-        activityService.createActivity(activityDto);
+    public ActivityDto create(@RequestBody ActivityDto activityDto) {
+        return activityService.create(activityDto);
     }
 
     @GetMapping
-    public List<ActivityDto> getAllActivities() {
-        return activityService.getAllActivities();
+    public List<ActivityDto> getAll() {
+        return activityService.getAll();
     }
 }

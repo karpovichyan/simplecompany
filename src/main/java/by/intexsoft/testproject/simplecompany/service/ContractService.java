@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 public interface ContractService {
-    ContractDto createContract(ContractDto contractDto);
+    ContractDto create(ContractDto contractDto);
 
-    Set<ContractDto> getContractByIds(List<Integer> contractId);
+    Set<ContractDto> getByIds(List<Integer> contractId);
 
-    ContractDto getContract(Integer contractId);
+    ContractDto get(Integer contractId);
 
-    List<ContractDto> getAllContracts();
+    List<ContractDto> getAll();
 
-    void deleteContract(Integer contractId);
+    void delete(Integer contractId);
 
-    void updateContract(ContractDto contractDto, Integer contractId);
+    void update(ContractDto contractDto, Integer contractId);
 }

@@ -22,20 +22,20 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public void createPosition(PositionDto positionDto) {
-        positionRepository.save(positionMapper.positionDtoToPosition(positionDto));
+    public PositionDto create(PositionDto positionDto) {
+        return positionMapper.toDto(positionRepository.save(positionMapper.toEntity(positionDto)));
     }
 
     @Override
-    public List<PositionDto> getAllPositions() {
+    public List<PositionDto> getAll() {
         return positionRepository.findAll()
                 .stream()
-                .map(positionMapper::positionToPositionDto)
+                .map(positionMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void updatePosition(PositionDto positionDto, Integer positionId) {
+    public void update(PositionDto positionDto, Integer positionId) {
         Position position = positionRepository.findById(positionId)
                 .orElseThrow(() -> new PlanNotFoundException("Position with id = " + positionId + " not found"));
         position.setName(positionDto.getName());

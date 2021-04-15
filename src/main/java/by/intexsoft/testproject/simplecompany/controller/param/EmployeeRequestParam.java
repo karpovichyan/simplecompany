@@ -1,6 +1,6 @@
 package by.intexsoft.testproject.simplecompany.controller.param;
 
-public class GetEmployeeRequestParam {
+public class EmployeeRequestParam {
     private String firstName;
     private String lastName;
     private String position;

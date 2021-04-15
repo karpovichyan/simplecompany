@@ -34,7 +34,7 @@ public class PayslipServiceImpl implements PayslipService {
     }
 
     @Override
-    public void createPayslips(PayslipDto payslipDto) throws IOException {
+    public void create(PayslipDto payslipDto) throws IOException {
         Plan plan = planRepository.findByDate(payslipDto.getDate())
                 .orElseThrow(() -> new PlanNotFoundException(
                         "Plan with date " + payslipDto.getDate() + " not found!"));

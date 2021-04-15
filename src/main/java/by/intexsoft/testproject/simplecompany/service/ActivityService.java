@@ -5,7 +5,7 @@ import by.intexsoft.testproject.simplecompany.dto.ActivityDto;
 import java.util.List;
 
 public interface ActivityService {
-    void createActivity(ActivityDto activityDto);
+    ActivityDto create(ActivityDto activityDto);
 
-    List<ActivityDto> getAllActivities();
+    List<ActivityDto> getAll();
 }

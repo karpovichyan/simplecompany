@@ -5,5 +5,5 @@ import by.intexsoft.testproject.simplecompany.dto.PayslipDto;
 import java.io.IOException;
 
 public interface PayslipService {
-    void createPayslips(PayslipDto payslipDto) throws IOException;
+    void create(PayslipDto payslipDto) throws IOException;
 }

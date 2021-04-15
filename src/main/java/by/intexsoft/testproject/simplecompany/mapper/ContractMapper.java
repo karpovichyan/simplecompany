@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ContractMapper {
-    Contract contractDtoToContract(ContractDto contractDto);
+    Contract toEntity(ContractDto contractDto);
 
-    ContractDto contractToContractDto(Contract contract);
+    ContractDto toDto(Contract contract);
 }

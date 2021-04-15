@@ -23,32 +23,32 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public void createPlan(PlanDto planDto) {
-        planRepository.save(planMapper.planDtoToPlan(planDto));
+    public PlanDto create(PlanDto planDto) {
+        return planMapper.toDto(planRepository.save(planMapper.toEntity(planDto)));
     }
 
     @Override
-    public List<PlanDto> getAllPlans() {
+    public List<PlanDto> getAll() {
         return planRepository.findAll()
                 .stream()
-                .map(planMapper::planToPlanDto)
+                .map(planMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PlanDto getPlan(Integer planId) {
+    public PlanDto get(Integer planId) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
-        return planMapper.planToPlanDto(plan);
+        return planMapper.toDto(plan);
     }
 
     @Override
-    public void deletePlan(Integer planId) {
+    public void delete(Integer planId) {
         planRepository.deleteById(planId);
     }
 
     @Override
-    public void updatePlan(PlanDto planDto, Integer planId) {
+    public void update(PlanDto planDto, Integer planId) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
         plan.setDate(planDto.getDate());

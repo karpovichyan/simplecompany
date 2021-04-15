@@ -1,28 +1,25 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
 public class EmployeeDto {
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
-    private int positionId;
-    private int contractId;
+    private Integer positionId;
+    private Integer contractId;
 
-    public EmployeeDto(String firstName, String lastName, int contractId, int positionId) {
+    public EmployeeDto(Integer id, String firstName, String lastName, Integer positionId, Integer contractId) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.contractId = contractId;
         this.positionId = positionId;
+        this.contractId = contractId;
     }
 
     public EmployeeDto() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -41,19 +38,23 @@ public class EmployeeDto {
         this.lastName = lastName;
     }
 
-    public int getContractId() {
-        return contractId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setContractId(int contractId) {
-        this.contractId = contractId;
-    }
-
-    public int getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(int positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
+    }
+
+    public Integer getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(Integer contractId) {
+        this.contractId = contractId;
     }
 }

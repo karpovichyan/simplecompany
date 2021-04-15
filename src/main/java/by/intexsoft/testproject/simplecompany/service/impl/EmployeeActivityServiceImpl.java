@@ -42,7 +42,7 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
     }
 
     @Override
-    public void createEmployeeActivity(EmployeeActivityDto employeeActivityDto) {
+    public EmployeeActivityDto create(EmployeeActivityDto employeeActivityDto) {
         Plan plan = planRepository.findById(employeeActivityDto.getPlanId())
                 .orElseThrow(() -> new PlanNotFoundException(
                         "Plan with id = " + employeeActivityDto.getPlanId() + " not found!"));
@@ -59,11 +59,11 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
         }
 
         EmployeeActivity employeeActivity = employeeActivityMapper.toEntity(employeeActivityDto, plan, employee, activity);
-        employeeActivityRepository.save(employeeActivity);
+        return employeeActivityMapper.toDto(employeeActivityRepository.save(employeeActivity));
     }
 
     @Override
-    public List<EmployeeActivityDto> getAllEmployeeActivities() {
+    public List<EmployeeActivityDto> getAll() {
         return employeeActivityRepository.findAll()
                 .stream()
                 .map(employeeActivityMapper::toDto)

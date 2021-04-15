@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface PlanMapper {
-    Plan planDtoToPlan(PlanDto planDto);
+    Plan toEntity(PlanDto planDto);
 
-    PlanDto planToPlanDto(Plan plan);
+    PlanDto toDto(Plan plan);
 }

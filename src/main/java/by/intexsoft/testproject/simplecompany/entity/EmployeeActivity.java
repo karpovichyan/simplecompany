@@ -4,29 +4,25 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "employee_activity")
 public class EmployeeActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
-    private int hours;
+    private Integer hours;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plan_id")
     private Plan plan;
 
     @ManyToOne
-    @JoinColumn(name = "activity_id")
     private Activity activity;
 
-    public EmployeeActivity(int hours, Employee employee, Plan plan, Activity activity) {
+    public EmployeeActivity(Integer hours, Employee employee, Plan plan, Activity activity) {
         this.hours = hours;
         this.employee = employee;
         this.plan = plan;
@@ -36,19 +32,19 @@ public class EmployeeActivity {
     public EmployeeActivity() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getHours() {
+    public Integer getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(Integer hours) {
         this.hours = hours;
     }
 
@@ -81,7 +77,7 @@ public class EmployeeActivity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeeActivity that = (EmployeeActivity) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/plans")
+@RequestMapping("plans")
 public class PlanController {
     private final PlanService planService;
 
@@ -16,27 +16,27 @@ public class PlanController {
     }
 
     @PostMapping
-    public void createPlan(@RequestBody PlanDto planDto) {
-        planService.createPlan(planDto);
+    public PlanDto create(@RequestBody PlanDto planDto) {
+        return planService.create(planDto);
     }
 
     @GetMapping
-    public List<PlanDto> getAllPlans() {
-        return planService.getAllPlans();
+    public List<PlanDto> getAll() {
+        return planService.getAll();
     }
 
     @GetMapping("/{planId}")
-    public PlanDto getPlan(@PathVariable Integer planId) {
-        return planService.getPlan(planId);
+    public PlanDto get(@PathVariable Integer planId) {
+        return planService.get(planId);
     }
 
     @DeleteMapping("/{planId}")
-    public void deletePlan(@PathVariable Integer planId) {
-        planService.deletePlan(planId);
+    public void delete(@PathVariable Integer planId) {
+        planService.delete(planId);
     }
 
     @PutMapping("/{planId}")
-    public void updatePlan(@RequestBody PlanDto planDto, @PathVariable Integer planId) {
-        planService.updatePlan(planDto, planId);
+    public void update(@RequestBody PlanDto planDto, @PathVariable Integer planId) {
+        planService.update(planDto, planId);
     }
 }

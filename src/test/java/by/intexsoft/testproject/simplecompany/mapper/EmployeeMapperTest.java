@@ -27,7 +27,7 @@ class EmployeeMapperTest {
         employeeDto.setLastName("karpovich");
 
         EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-        Employee employee = employeeMapper.employeeDtoToEmpolyee(employeeDto, position, contract);
+        Employee employee = employeeMapper.toEntity(employeeDto, position, contract);
 
         assertThat(employee.getId()).isEqualTo(1);
         assertThat(employee.getFirstName()).isEqualTo("yan");

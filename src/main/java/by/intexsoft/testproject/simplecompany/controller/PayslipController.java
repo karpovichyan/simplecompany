@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/payslips")
+@RequestMapping("payslips")
 public class PayslipController {
     private final PayslipService payslipService;
 
@@ -19,7 +19,7 @@ public class PayslipController {
     }
 
     @PostMapping
-    void createPayslip(@RequestBody PayslipDto payslipDto) throws IOException {
-        payslipService.createPayslips(payslipDto);
+    void create(@RequestBody PayslipDto payslipDto) throws IOException {
+        payslipService.create(payslipDto);
     }
 }

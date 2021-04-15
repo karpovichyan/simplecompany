@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ActivityMapper {
-    Activity activityDtoToActivity(ActivityDto activityDto);
+    Activity toEntity(ActivityDto activityDto);
 
-    ActivityDto activityToActivityDto(Activity activity);
+    ActivityDto toDto(Activity activity);
 }
