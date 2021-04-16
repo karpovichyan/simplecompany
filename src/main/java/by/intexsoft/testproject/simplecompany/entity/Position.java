@@ -5,24 +5,23 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "position")
 public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
 
     @Column
-    private int salary;
+    private Integer salary;
 
     @OneToMany(mappedBy = "position")
     private Set<Employee> employees;
 
 
-    public Position(String name, int salary) {
+    public Position(String name, Integer salary) {
         this.name = name;
         this.salary = salary;
     }
@@ -30,11 +29,11 @@ public class Position {
     public Position() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,11 +45,11 @@ public class Position {
         this.name = name;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
@@ -67,7 +66,7 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
-        return id == position.id;
+        return id.equals(position.id);
     }
 
     @Override

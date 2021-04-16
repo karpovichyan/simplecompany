@@ -1,5 +1,7 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
+import by.intexsoft.testproject.simplecompany.entity.enumeration.ActivityType;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
@@ -7,12 +9,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "activity")
 public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -24,6 +25,23 @@ public class Activity {
 
     @OneToMany(mappedBy = "activity")
     private Set<EmployeeActivity> employeeActivities;
+
+    public Activity(ActivityType activityType, BigDecimal ratio, Set<EmployeeActivity> employeeActivities) {
+        this.activityType = activityType;
+        this.ratio = ratio;
+        this.employeeActivities = employeeActivities;
+    }
+
+    public Activity() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public BigDecimal getRatio() {
         return ratio;
@@ -54,7 +72,7 @@ public class Activity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Activity activity = (Activity) o;
-        return id == activity.id;
+        return id.equals(activity.id);
     }
 
     @Override

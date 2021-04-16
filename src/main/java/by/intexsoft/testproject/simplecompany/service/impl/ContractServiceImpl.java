@@ -23,31 +23,45 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ContractDto createContract(ContractDto contractDto) {
-        Contract contract = contractMapper.contractDtoToContract(contractDto);
-        return contractMapper.contractToContractDto(contractRepository.save(contract));
+    public ContractDto create(ContractDto contractDto) {
+        Contract contract = contractMapper.toEntity(contractDto);
+        return contractMapper.toDto(contractRepository.save(contract));
     }
 
     @Override
-    public Set<ContractDto> getContractByIds(Integer contractId) {
-        return contractRepository.findContractsById(contractId)
+    public Set<ContractDto> getByIds(List<Integer> contractId) {
+        return contractRepository.findContractByIdIn(contractId)
                 .stream()
-                .map(contractMapper::contractToContractDto)
+                .map(contractMapper::toDto)
                 .collect(Collectors.toSet());
     }
 
     @Override
-    public List<ContractDto> getAllContracts() {
+    public List<ContractDto> getAll() {
         return contractRepository.findAll()
                 .stream()
-                .map(contractMapper::contractToContractDto)
+                .map(contractMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ContractDto getContractInfo(Integer contractId) {
-        Contract contract = contractRepository.findById(contractId).orElseThrow(() -> new ContractNotFoundException("Contract " + contractId + " not found"));
-        return contractMapper.contractToContractDto(contract);
+    public ContractDto get(Integer contractId) {
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
+        return contractMapper.toDto(contract);
+    }
+
+    @Override
+    public void delete(Integer contractId) {
+        contractRepository.deleteById(contractId);
+    }
+
+    @Override
+    public void update(ContractDto contractDto, Integer contractId) {
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
+        contract.setDate(contractDto.getDate());
+        contractRepository.save(contract);
     }
 }
 

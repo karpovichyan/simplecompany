@@ -6,23 +6,22 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "plan")
 public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private LocalDate date;
 
     @Column
-    private int totalHours;
+    private Integer totalHours;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private Set<EmployeeActivity> employeeActivities;
 
-    public Plan(LocalDate date, int totalHours, Set<EmployeeActivity> employeeActivities) {
+    public Plan(LocalDate date, Integer totalHours, Set<EmployeeActivity> employeeActivities) {
         this.date = date;
         this.totalHours = totalHours;
         this.employeeActivities = employeeActivities;
@@ -31,12 +30,20 @@ public class Plan {
     public Plan() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTotalHours() {
+        return totalHours;
+    }
+
+    public void setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
     }
 
     public LocalDate getDate() {
@@ -55,20 +62,12 @@ public class Plan {
         this.employeeActivities = employeeActivities;
     }
 
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public void setTotalHours(int totalHours) {
-        this.totalHours = totalHours;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return id == plan.id;
+        return id.equals(plan.id);
     }
 
     @Override

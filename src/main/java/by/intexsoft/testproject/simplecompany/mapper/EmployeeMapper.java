@@ -10,11 +10,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
     @Mapping(source = "employeeDto.id", target = "id")
-    Employee employeeDtoToEmpolyee(EmployeeDto employeeDto, Position position, Contract contract);
+    Employee toEntity(EmployeeDto employeeDto, Position position, Contract contract);
 
 
     @Mapping(source = "employee.id", target = "id")
     @Mapping(source = "employee.position.id", target = "positionId")
     @Mapping(source = "employee.contract.id", target = "contractId")
-    EmployeeDto employeeToEmployeeDto(Employee employee);
+    EmployeeDto toDto(Employee employee);
 }

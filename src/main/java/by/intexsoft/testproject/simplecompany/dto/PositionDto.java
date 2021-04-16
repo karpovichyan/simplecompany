@@ -1,11 +1,11 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
 public class PositionDto {
-    private int id;
+    private Integer id;
     private String name;
-    private int salary;
+    private Integer salary;
 
-    public PositionDto(int id, String name, int salary) {
+    public PositionDto(Integer id, String name, Integer salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
@@ -14,12 +14,16 @@ public class PositionDto {
     public PositionDto() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 
     public String getName() {

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/contracts")
+@RequestMapping("contracts")
 public class ContractController {
     private final ContractService contractService;
 
@@ -17,22 +17,32 @@ public class ContractController {
     }
 
     @PostMapping
-    public ContractDto createContract(@RequestBody ContractDto contractDto) {
-        return contractService.createContract(contractDto);
-    }
-
-    @GetMapping("/ids")
-    public Set<ContractDto> getContractByIds(@RequestParam Integer contractId) {
-        return contractService.getContractByIds(contractId);
+    public ContractDto create(@RequestBody ContractDto contractDto) {
+        return contractService.create(contractDto);
     }
 
     @GetMapping
-    public List<ContractDto> getAllContracts() {
-        return contractService.getAllContracts();
+    public List<ContractDto> getAll() {
+        return contractService.getAll();
+    }
+
+    @GetMapping("/ids")
+    public Set<ContractDto> getByIds(@RequestParam List<Integer> contractIds) {
+        return contractService.getByIds(contractIds);
     }
 
     @GetMapping(path = "/{contractId}")
-    public ContractDto getContractInfo(@PathVariable Integer contractId) {
-        return contractService.getContractInfo(contractId);
+    public ContractDto get(@PathVariable Integer contractId) {
+        return contractService.get(contractId);
+    }
+
+    @DeleteMapping("/{contractId}")
+    public void delete(@PathVariable Integer contractId) {
+        contractService.delete(contractId);
+    }
+
+    @PutMapping("/{contractId}")
+    public void update(@RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
+        contractService.update(contractDto, contractId);
     }
 }

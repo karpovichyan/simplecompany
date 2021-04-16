@@ -1,9 +1,7 @@
 package by.intexsoft.testproject.simplecompany.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @ConfigurationProperties(prefix = "app.payslip")
 public class ConfigProperties {
     private String path;

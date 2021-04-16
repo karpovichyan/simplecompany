@@ -34,11 +34,10 @@ public class PayslipServiceImpl implements PayslipService {
     }
 
     @Override
-    public void createPayslips(PayslipDto payslipDto) throws IOException {
-        Plan plan = planRepository.findByDate(payslipDto.getDate()).
-                orElseThrow(() -> new PlanNotFoundException(
-                        "Plan date " + payslipDto.getDate() + " not found!"
-                ));
+    public void create(PayslipDto payslipDto) throws IOException {
+        Plan plan = planRepository.findByDate(payslipDto.getDate())
+                .orElseThrow(() -> new PlanNotFoundException(
+                        "Plan with date " + payslipDto.getDate() + " not found!"));
         List<EmployeeActivity> employeeActivities = employeeActivityRepository.findAllByPlanId(plan.getId());
 
         Map<Employee, List<EmployeeActivity>> employeeActivityMap = employeeActivities.stream()

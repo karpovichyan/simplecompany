@@ -2,11 +2,12 @@ package by.intexsoft.testproject.simplecompany;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
+@ConfigurationPropertiesScan
 @SpringBootApplication
-public class SimplecompanyApplication {
+public class SimpleCompanyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SimplecompanyApplication.class, args);
+        SpringApplication.run(SimpleCompanyApplication.class, args);
     }
-
 }

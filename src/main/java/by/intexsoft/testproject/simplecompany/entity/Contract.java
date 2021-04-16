@@ -9,13 +9,10 @@ public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private LocalDate date;
-
-    @OneToOne(mappedBy = "contract")
-    private Employee employee;
 
     public Contract(LocalDate date) {
         this.date = date;
@@ -24,11 +21,11 @@ public class Contract {
     public Contract() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,20 +37,12 @@ public class Contract {
         this.date = date;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contract contract = (Contract) o;
-        return id == contract.id;
+        return id.equals(contract.id);
     }
 
     @Override

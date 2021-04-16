@@ -1,13 +1,13 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
 public class EmployeeActivityDto {
-    private int id;
-    private int hours;
-    private int planId;
-    private int employeeId;
+    private Integer id;
+    private Integer hours;
+    private Integer planId;
+    private Integer employeeId;
     private Integer activityId;
 
-    public EmployeeActivityDto(int id, int hours, int planId, int employeeId, Integer activityId) {
+    public EmployeeActivityDto(Integer id, Integer hours, Integer planId, Integer employeeId, Integer activityId) {
         this.id = id;
         this.hours = hours;
         this.planId = planId;
@@ -15,35 +15,35 @@ public class EmployeeActivityDto {
         this.activityId = activityId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getHours() {
+    public Integer getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(Integer hours) {
         this.hours = hours;
     }
 
-    public int getPlanId() {
+    public Integer getPlanId() {
         return planId;
     }
 
-    public void setPlanId(int planId) {
+    public void setPlanId(Integer planId) {
         this.planId = planId;
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 

@@ -1,11 +1,16 @@
 package by.intexsoft.testproject.simplecompany.service;
 
+import by.intexsoft.testproject.simplecompany.controller.param.EmployeeRequestParam;
 import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 
 import java.util.List;
 
 public interface EmployeeService {
-    void createEmployee(EmployeeDto employeeDto);
+    EmployeeDto create(EmployeeDto employeeDto);
 
-    List<EmployeeDto> getAllEmployees();
+    void delete(Integer employeeId);
+
+    List<EmployeeDto> get(EmployeeRequestParam getEmployeeRequestParam);
+
+    void update(EmployeeDto employeeDto, Integer employeeId);
 }
