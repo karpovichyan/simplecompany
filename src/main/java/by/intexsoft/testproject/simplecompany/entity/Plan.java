@@ -1,6 +1,7 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -12,10 +13,12 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private LocalDate date;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private Integer totalHours;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)

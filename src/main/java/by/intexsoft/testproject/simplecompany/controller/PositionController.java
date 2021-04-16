@@ -4,6 +4,7 @@ import by.intexsoft.testproject.simplecompany.dto.PositionDto;
 import by.intexsoft.testproject.simplecompany.service.PositionService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class PositionController {
     }
 
     @PostMapping
-    public PositionDto create(@RequestBody PositionDto positionDto) {
+    public PositionDto create(@Valid @RequestBody PositionDto positionDto) {
         return positionService.create(positionDto);
     }
 
@@ -26,7 +27,7 @@ public class PositionController {
     }
 
     @PutMapping("/{positionId}")
-    public void update(@RequestBody PositionDto positionDto, @PathVariable Integer positionId) {
-        positionService.update(positionDto, positionId);
+    public PositionDto update(@Valid @RequestBody PositionDto positionDto, @PathVariable Integer positionId) {
+        return positionService.update(positionDto, positionId);
     }
 }

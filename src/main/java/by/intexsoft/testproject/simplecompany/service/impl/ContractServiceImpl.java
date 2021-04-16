@@ -8,6 +8,7 @@ import by.intexsoft.testproject.simplecompany.repository.ContractRepository;
 import by.intexsoft.testproject.simplecompany.service.ContractService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,8 +30,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Set<ContractDto> getByIds(List<Integer> contractId) {
-        return contractRepository.findContractByIdIn(contractId)
+    public Set<ContractDto> getByIds(List<Integer> contractIds) {
+        return contractRepository.findContractByIdIn(contractIds)
                 .stream()
                 .map(contractMapper::toDto)
                 .collect(Collectors.toSet());
@@ -57,11 +58,12 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void update(ContractDto contractDto, Integer contractId) {
+    @Transactional
+    public ContractDto update(ContractDto contractDto, Integer contractId) {
         Contract contract = contractRepository.findById(contractId)
                 .orElseThrow(() -> new ContractNotFoundException("Contract with id = " + contractId + " not found"));
-        contract.setDate(contractDto.getDate());
-        contractRepository.save(contract);
+        contractMapper.updateFromDto(contractDto, contract);
+        return contractMapper.toDto(contract);
     }
 }
 

@@ -1,18 +1,27 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.validation.constraints.NotNull;
+
 public class EmployeeActivityDto {
     private Integer id;
+    @NotNull
     private Integer hours;
-    private Integer planId;
-    private Integer employeeId;
-    private Integer activityId;
+    @NotNull
+    private PlanDto plan;
+    @NotNull
+    @JsonBackReference
+    private EmployeeDto employee;
+    @NotNull
+    private ActivityDto activity;
 
-    public EmployeeActivityDto(Integer id, Integer hours, Integer planId, Integer employeeId, Integer activityId) {
+    public EmployeeActivityDto(Integer id, Integer hours, PlanDto plan, EmployeeDto employee, ActivityDto activity) {
         this.id = id;
         this.hours = hours;
-        this.planId = planId;
-        this.employeeId = employeeId;
-        this.activityId = activityId;
+        this.plan = plan;
+        this.employee = employee;
+        this.activity = activity;
     }
 
     public Integer getId() {
@@ -31,27 +40,27 @@ public class EmployeeActivityDto {
         this.hours = hours;
     }
 
-    public Integer getPlanId() {
-        return planId;
+    public PlanDto getPlan() {
+        return plan;
     }
 
-    public void setPlanId(Integer planId) {
-        this.planId = planId;
+    public void setPlan(PlanDto plan) {
+        this.plan = plan;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public EmployeeDto getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(EmployeeDto employee) {
+        this.employee = employee;
     }
 
-    public Integer getActivityId() {
-        return activityId;
+    public ActivityDto getActivity() {
+        return activity;
     }
 
-    public void setActivityId(Integer activityId) {
-        this.activityId = activityId;
+    public void setActivity(ActivityDto activity) {
+        this.activity = activity;
     }
 }

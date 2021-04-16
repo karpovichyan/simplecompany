@@ -23,7 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityDto create(ActivityDto activityDto) {
         Activity activity = activityMapper.toEntity(activityDto);
-        return activityMapper.toDto(activity);
+        return activityMapper.toDto(activityRepository.save(activity));
     }
 
     @Override

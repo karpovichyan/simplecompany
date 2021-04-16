@@ -1,4 +1,4 @@
-package by.intexsoft.testproject.simplecompany.configuration;
+package by.intexsoft.testproject.simplecompany.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

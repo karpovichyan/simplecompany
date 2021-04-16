@@ -1,6 +1,7 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,10 +12,12 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private Integer salary;
 
     @OneToMany(mappedBy = "position")

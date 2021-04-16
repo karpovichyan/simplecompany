@@ -1,8 +1,12 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class PositionDto {
     private Integer id;
+    @NotNull
     private String name;
+    @NotNull
     private Integer salary;
 
     public PositionDto(Integer id, String name, Integer salary) {

@@ -4,6 +4,7 @@ import by.intexsoft.testproject.simplecompany.dto.ContractDto;
 import by.intexsoft.testproject.simplecompany.service.ContractService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class ContractController {
     }
 
     @PostMapping
-    public ContractDto create(@RequestBody ContractDto contractDto) {
+    public ContractDto create(@Valid @RequestBody ContractDto contractDto) {
         return contractService.create(contractDto);
     }
 
@@ -42,7 +43,7 @@ public class ContractController {
     }
 
     @PutMapping("/{contractId}")
-    public void update(@RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
-        contractService.update(contractDto, contractId);
+    public ContractDto update(@Valid @RequestBody ContractDto contractDto, @PathVariable Integer contractId) {
+        return contractService.update(contractDto, contractId);
     }
 }

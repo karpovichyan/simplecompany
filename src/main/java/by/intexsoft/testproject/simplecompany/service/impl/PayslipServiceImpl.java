@@ -1,9 +1,9 @@
 package by.intexsoft.testproject.simplecompany.service.impl;
 
-import by.intexsoft.testproject.simplecompany.dto.PayslipDto;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
 import by.intexsoft.testproject.simplecompany.entity.EmployeeActivity;
 import by.intexsoft.testproject.simplecompany.entity.Plan;
+import by.intexsoft.testproject.simplecompany.entity.enumeration.ActivityType;
 import by.intexsoft.testproject.simplecompany.exception.PlanNotFoundException;
 import by.intexsoft.testproject.simplecompany.repository.EmployeeActivityRepository;
 import by.intexsoft.testproject.simplecompany.repository.PlanRepository;
@@ -13,7 +13,7 @@ import by.intexsoft.testproject.simplecompany.service.payslip.PayslipWriter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,10 +34,10 @@ public class PayslipServiceImpl implements PayslipService {
     }
 
     @Override
-    public void create(PayslipDto payslipDto) throws IOException {
-        Plan plan = planRepository.findByDate(payslipDto.getDate())
+    public void create(LocalDate date) throws IOException {
+        Plan plan = planRepository.findByDate(date)
                 .orElseThrow(() -> new PlanNotFoundException(
-                        "Plan with date " + payslipDto.getDate() + " not found!"));
+                        "Plan with date " + date + " not found!"));
         List<EmployeeActivity> employeeActivities = employeeActivityRepository.findAllByPlanId(plan.getId());
 
         Map<Employee, List<EmployeeActivity>> employeeActivityMap = employeeActivities.stream()
@@ -47,11 +47,13 @@ public class PayslipServiceImpl implements PayslipService {
             List<EmployeeActivity> employeeActivityList = entry.getValue();
 
             ArrayList<Integer> leaveHours = new ArrayList<>();
-            ArrayList<BigDecimal> leaveHoursRatio = new ArrayList<>();
+            ArrayList<Double> leaveHoursRatio = new ArrayList<>();
             for (EmployeeActivity employeeActivity : employeeActivityList) {
-                leaveHours.add(employeeActivity.getHours());
-                if (employeeActivity.getActivity() != null) {
-                    leaveHoursRatio.add(BigDecimal.valueOf(employeeActivity.getHours()).multiply(employeeActivity.getActivity().getRatio()));
+                double earnedAnOneHour = (double) employeeActivity.getEmployee().getPosition().getSalary() / employeeActivity.getPlan().getTotalHours();
+                double earnedAnHours = employeeActivity.getHours() * employeeActivity.getActivity().getRatio() * earnedAnOneHour;
+                leaveHoursRatio.add(earnedAnHours);
+                if (employeeActivity.getActivity().getActivityType() == ActivityType.PRESENT) {
+                    leaveHours.add(employeeActivity.getPlan().getTotalHours() - employeeActivity.getHours());
                 }
             }
 
