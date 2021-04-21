@@ -13,5 +13,5 @@ public interface PlanService {
 
     PlanDto get(Integer planId);
 
-    void update(PlanDto planDto, Integer planId);
+    PlanDto update(PlanDto planDto, Integer planId);
 }

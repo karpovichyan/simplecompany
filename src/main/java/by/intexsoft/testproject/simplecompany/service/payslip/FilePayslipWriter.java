@@ -1,7 +1,7 @@
 package by.intexsoft.testproject.simplecompany.service.payslip;
 
-import by.intexsoft.testproject.simplecompany.configuration.ConfigProperties;
 import by.intexsoft.testproject.simplecompany.entity.EmployeeActivity;
+import by.intexsoft.testproject.simplecompany.properties.ConfigProperties;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

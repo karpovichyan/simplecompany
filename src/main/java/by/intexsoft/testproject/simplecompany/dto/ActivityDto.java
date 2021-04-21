@@ -2,14 +2,16 @@ package by.intexsoft.testproject.simplecompany.dto;
 
 import by.intexsoft.testproject.simplecompany.entity.enumeration.ActivityType;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
 
 public class ActivityDto {
     private Integer id;
+    @NotNull
     private ActivityType activityType;
-    private BigDecimal ratio;
+    @NotNull
+    private Double ratio;
 
-    public ActivityDto(Integer id, ActivityType activityType, BigDecimal ratio) {
+    public ActivityDto(Integer id, ActivityType activityType, Double ratio) {
         this.id = id;
         this.activityType = activityType;
         this.ratio = ratio;
@@ -34,11 +36,11 @@ public class ActivityDto {
         this.activityType = activityType;
     }
 
-    public BigDecimal getRatio() {
+    public Double getRatio() {
         return ratio;
     }
 
-    public void setRatio(BigDecimal ratio) {
+    public void setRatio(Double ratio) {
         this.ratio = ratio;
     }
 }

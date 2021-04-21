@@ -4,6 +4,7 @@ import by.intexsoft.testproject.simplecompany.dto.EmployeeDto;
 import by.intexsoft.testproject.simplecompany.entity.Contract;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
 import by.intexsoft.testproject.simplecompany.entity.Position;
+import by.intexsoft.testproject.simplecompany.mapper.context.CycleAvoidingMappingContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -27,7 +28,7 @@ class EmployeeMapperTest {
         employeeDto.setLastName("karpovich");
 
         EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-        Employee employee = employeeMapper.toEntity(employeeDto, position, contract);
+        Employee employee = employeeMapper.toEntity(employeeDto, position, contract, new CycleAvoidingMappingContext());
 
         assertThat(employee.getId()).isEqualTo(1);
         assertThat(employee.getFirstName()).isEqualTo("yan");

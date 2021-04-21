@@ -1,9 +1,9 @@
 package by.intexsoft.testproject.simplecompany.controller.param;
 
-public class EmployeeRequestParam {
+public class SalaryEmployeeRequestParam {
     private String firstName;
     private String lastName;
-    private String position;
+    private Integer salary;
 
     public String getFirstName() {
         return firstName;
@@ -21,11 +21,11 @@ public class EmployeeRequestParam {
         this.lastName = lastName;
     }
 
-    public String getPosition() {
-        return position;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 }

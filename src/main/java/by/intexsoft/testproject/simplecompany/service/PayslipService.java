@@ -1,9 +1,8 @@
 package by.intexsoft.testproject.simplecompany.service;
 
-import by.intexsoft.testproject.simplecompany.dto.PayslipDto;
-
 import java.io.IOException;
+import java.time.LocalDate;
 
 public interface PayslipService {
-    void create(PayslipDto payslipDto) throws IOException;
+    void create(LocalDate date) throws IOException;
 }

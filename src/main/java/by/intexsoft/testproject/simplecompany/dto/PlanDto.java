@@ -1,10 +1,13 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class PlanDto {
     private Integer id;
+    @NotNull
     private LocalDate date;
+    @NotNull
     private Integer totalHours;
 
     public PlanDto(Integer id, LocalDate date, Integer totalHours) {

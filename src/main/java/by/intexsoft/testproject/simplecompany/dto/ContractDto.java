@@ -1,9 +1,11 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class ContractDto {
     private Integer id;
+    @NotNull
     private LocalDate date;
 
     public ContractDto(Integer id, LocalDate date) {

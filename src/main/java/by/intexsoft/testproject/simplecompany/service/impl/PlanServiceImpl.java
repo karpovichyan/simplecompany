@@ -8,6 +8,7 @@ import by.intexsoft.testproject.simplecompany.mapper.PlanMapper;
 import by.intexsoft.testproject.simplecompany.repository.PlanRepository;
 import by.intexsoft.testproject.simplecompany.service.PlanService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,11 +49,11 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public void update(PlanDto planDto, Integer planId) {
+    @Transactional
+    public PlanDto update(PlanDto planDto, Integer planId) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
-        plan.setDate(planDto.getDate());
-        plan.setTotalHours(planDto.getTotalHours());
-        planRepository.save(plan);
+        planMapper.updateFromDto(planDto, plan);
+        return planMapper.toDto(plan);
     }
 }

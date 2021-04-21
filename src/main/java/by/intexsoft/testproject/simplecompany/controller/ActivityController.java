@@ -4,6 +4,7 @@ import by.intexsoft.testproject.simplecompany.dto.ActivityDto;
 import by.intexsoft.testproject.simplecompany.service.ActivityService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class ActivityController {
     }
 
     @PostMapping
-    public ActivityDto create(@RequestBody ActivityDto activityDto) {
+    public ActivityDto create(@Valid @RequestBody ActivityDto activityDto) {
         return activityService.create(activityDto);
     }
 

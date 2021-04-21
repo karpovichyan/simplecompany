@@ -5,6 +5,8 @@ import by.intexsoft.testproject.simplecompany.entity.Activity;
 import by.intexsoft.testproject.simplecompany.entity.Employee;
 import by.intexsoft.testproject.simplecompany.entity.EmployeeActivity;
 import by.intexsoft.testproject.simplecompany.entity.Plan;
+import by.intexsoft.testproject.simplecompany.mapper.context.CycleAvoidingMappingContext;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,8 +21,5 @@ public interface EmployeeActivityMapper {
     );
 
     @Mapping(source = "employeeActivity.id", target = "id")
-    @Mapping(source = "employeeActivity.plan.id", target = "planId")
-    @Mapping(source = "employeeActivity.employee.id", target = "employeeId")
-    @Mapping(source = "employeeActivity.activity.id", target = "activityId")
-    EmployeeActivityDto toDto(EmployeeActivity employeeActivity);
+    EmployeeActivityDto toDto(EmployeeActivity employeeActivity, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

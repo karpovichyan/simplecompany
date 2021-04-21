@@ -8,7 +8,7 @@ import java.util.Set;
 public interface ContractService {
     ContractDto create(ContractDto contractDto);
 
-    Set<ContractDto> getByIds(List<Integer> contractId);
+    Set<ContractDto> getByIds(List<Integer> contractIds);
 
     ContractDto get(Integer contractId);
 
@@ -16,5 +16,5 @@ public interface ContractService {
 
     void delete(Integer contractId);
 
-    void update(ContractDto contractDto, Integer contractId);
+    ContractDto update(ContractDto contractDto, Integer contractId);
 }

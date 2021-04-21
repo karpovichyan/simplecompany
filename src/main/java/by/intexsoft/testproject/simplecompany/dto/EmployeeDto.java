@@ -1,18 +1,31 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.validation.constraints.NotNull;
+import java.util.Set;
+
 public class EmployeeDto {
     private Integer id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
-    private Integer positionId;
-    private Integer contractId;
+    @NotNull
+    private PositionDto position;
+    @NotNull
+    private ContractDto contract;
+    @NotNull
+    @JsonManagedReference
+    private Set<EmployeeActivityDto> employeeActivities;
 
-    public EmployeeDto(Integer id, String firstName, String lastName, Integer positionId, Integer contractId) {
+    public EmployeeDto(Integer id, String firstName, String lastName, PositionDto position, ContractDto contract, Set<EmployeeActivityDto> employeeActivities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.positionId = positionId;
-        this.contractId = contractId;
+        this.position = position;
+        this.contract = contract;
+        this.employeeActivities = employeeActivities;
     }
 
     public EmployeeDto() {
@@ -42,19 +55,27 @@ public class EmployeeDto {
         this.id = id;
     }
 
-    public Integer getPositionId() {
-        return positionId;
+    public PositionDto getPosition() {
+        return position;
     }
 
-    public void setPositionId(Integer positionId) {
-        this.positionId = positionId;
+    public void setPosition(PositionDto position) {
+        this.position = position;
     }
 
-    public Integer getContractId() {
-        return contractId;
+    public ContractDto getContract() {
+        return contract;
     }
 
-    public void setContractId(Integer contractId) {
-        this.contractId = contractId;
+    public void setContract(ContractDto contract) {
+        this.contract = contract;
+    }
+
+    public Set<EmployeeActivityDto> getEmployeeActivities() {
+        return employeeActivities;
+    }
+
+    public void setEmployeeActivities(Set<EmployeeActivityDto> employeeActivities) {
+        this.employeeActivities = employeeActivities;
     }
 }

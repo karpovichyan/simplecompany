@@ -4,6 +4,7 @@ import by.intexsoft.testproject.simplecompany.dto.PlanDto;
 import by.intexsoft.testproject.simplecompany.service.PlanService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class PlanController {
     }
 
     @PostMapping
-    public PlanDto create(@RequestBody PlanDto planDto) {
+    public PlanDto create(@Valid @RequestBody PlanDto planDto) {
         return planService.create(planDto);
     }
 
@@ -36,7 +37,7 @@ public class PlanController {
     }
 
     @PutMapping("/{planId}")
-    public void update(@RequestBody PlanDto planDto, @PathVariable Integer planId) {
-        planService.update(planDto, planId);
+    public PlanDto update(@Valid @RequestBody PlanDto planDto, @PathVariable Integer planId) {
+        return planService.update(planDto, planId);
     }
 }

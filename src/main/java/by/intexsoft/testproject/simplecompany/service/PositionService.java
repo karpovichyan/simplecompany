@@ -9,5 +9,5 @@ public interface PositionService {
 
     List<PositionDto> getAll();
 
-    void update(PositionDto positionDto, Integer positionId);
+    PositionDto update(PositionDto positionDto, Integer positionId);
 }

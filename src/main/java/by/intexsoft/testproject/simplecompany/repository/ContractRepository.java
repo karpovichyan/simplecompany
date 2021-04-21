@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Set;
 
 public interface ContractRepository extends JpaRepository<Contract, Integer> {
-    Set<Contract> findContractByIdIn(List<Integer> id);
+    Set<Contract> findContractByIdIn(List<Integer> ids);
 }

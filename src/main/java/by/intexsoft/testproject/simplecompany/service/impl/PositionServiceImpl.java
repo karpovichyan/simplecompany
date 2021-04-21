@@ -7,6 +7,7 @@ import by.intexsoft.testproject.simplecompany.mapper.PositionMapper;
 import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.PositionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +36,11 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public void update(PositionDto positionDto, Integer positionId) {
+    @Transactional
+    public PositionDto update(PositionDto positionDto, Integer positionId) {
         Position position = positionRepository.findById(positionId)
                 .orElseThrow(() -> new PlanNotFoundException("Position with id = " + positionId + " not found"));
-        position.setName(positionDto.getName());
-        position.setSalary(positionDto.getSalary());
-        positionRepository.save(position);
+        positionMapper.updateFromDto(positionDto, position);
+        return positionMapper.toDto(position);
     }
 }
