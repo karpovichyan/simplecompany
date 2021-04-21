@@ -2,20 +2,25 @@ package by.intexsoft.testproject.simplecompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class EmployeeDto {
     private Integer id;
-    @NotNull
+    @NotBlank
     private String firstName;
-    @NotNull
+    @NotBlank
     private String lastName;
     @NotNull
+    @Valid
     private PositionDto position;
     @NotNull
+    @Valid
     private ContractDto contract;
     @NotNull
+    @Valid
     @JsonManagedReference
     private Set<EmployeeActivityDto> employeeActivities;
 

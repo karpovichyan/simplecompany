@@ -2,13 +2,9 @@ package by.intexsoft.testproject.simplecompany.controller;
 
 import by.intexsoft.testproject.simplecompany.service.PayslipService;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.time.LocalDate;
 
 @RestController
@@ -21,7 +17,12 @@ public class PayslipController {
     }
 
     @PostMapping
-    void create(@Valid @RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws IOException {
+    public void create(@Valid @RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         payslipService.create(date);
+    }
+
+    @GetMapping
+    public String getProgress(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return payslipService.getProgress(date);
     }
 }

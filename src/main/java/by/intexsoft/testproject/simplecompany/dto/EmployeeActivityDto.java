@@ -2,6 +2,7 @@ package by.intexsoft.testproject.simplecompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class EmployeeActivityDto {
@@ -9,11 +10,14 @@ public class EmployeeActivityDto {
     @NotNull
     private Integer hours;
     @NotNull
+    @Valid
     private PlanDto plan;
     @NotNull
+    @Valid
     @JsonBackReference
     private EmployeeDto employee;
     @NotNull
+    @Valid
     private ActivityDto activity;
 
     public EmployeeActivityDto(Integer id, Integer hours, PlanDto plan, EmployeeDto employee, ActivityDto activity) {

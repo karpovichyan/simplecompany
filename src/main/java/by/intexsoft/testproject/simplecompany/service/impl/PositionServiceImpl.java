@@ -2,7 +2,7 @@ package by.intexsoft.testproject.simplecompany.service.impl;
 
 import by.intexsoft.testproject.simplecompany.dto.PositionDto;
 import by.intexsoft.testproject.simplecompany.entity.Position;
-import by.intexsoft.testproject.simplecompany.exception.PlanNotFoundException;
+import by.intexsoft.testproject.simplecompany.exception.PositionNotFoundException;
 import by.intexsoft.testproject.simplecompany.mapper.PositionMapper;
 import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.PositionService;
@@ -24,6 +24,9 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionDto create(PositionDto positionDto) {
+        if (positionDto == null) {
+            throw new IllegalArgumentException("positionDto is null");
+        }
         return positionMapper.toDto(positionRepository.save(positionMapper.toEntity(positionDto)));
     }
 
@@ -38,8 +41,14 @@ public class PositionServiceImpl implements PositionService {
     @Override
     @Transactional
     public PositionDto update(PositionDto positionDto, Integer positionId) {
+        if (positionDto == null) {
+            throw new IllegalArgumentException("positionDto is null");
+        }
+        if (positionId == null) {
+            throw new IllegalArgumentException("positionId is null");
+        }
         Position position = positionRepository.findById(positionId)
-                .orElseThrow(() -> new PlanNotFoundException("Position with id = " + positionId + " not found"));
+                .orElseThrow(() -> new PositionNotFoundException("Position with id = " + positionId + " not found"));
         positionMapper.updateFromDto(positionDto, position);
         return positionMapper.toDto(position);
     }

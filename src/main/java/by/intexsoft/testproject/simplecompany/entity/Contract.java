@@ -1,7 +1,6 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -12,7 +11,6 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(nullable = false)
     private LocalDate date;
 

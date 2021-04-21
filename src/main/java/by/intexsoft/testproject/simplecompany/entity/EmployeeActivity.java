@@ -1,7 +1,6 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -11,19 +10,15 @@ public class EmployeeActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(nullable = false)
     private Integer hours;
 
-    @NotNull
     @ManyToOne
     private Employee employee;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Plan plan;
 
-    @NotNull
     @ManyToOne
     private Activity activity;
 

@@ -1,7 +1,6 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,19 +10,15 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(nullable = false)
     private String firstName;
 
-    @NotNull
     @Column(nullable = false)
     private String lastName;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Position position;
 
-    @NotNull
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Contract contract;
 

@@ -4,7 +4,7 @@ import by.intexsoft.testproject.simplecompany.entity.enumeration.ActivityType;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,23 +15,21 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ActivityType activityType;
 
-    @NotNull
     @Column(nullable = false, precision = 2, scale = 1)
     @Digits(integer = 2, fraction = 1)
-    private Double ratio;
+    private BigDecimal ratio;
 
     @OneToMany(mappedBy = "activity")
     private Set<EmployeeActivity> employeeActivities;
 
-    public Activity(ActivityType activityType, Double ratio, Set<EmployeeActivity> employeeActivities) {
+    public Activity(Integer id, ActivityType activityType, BigDecimal ratio) {
+        this.id = id;
         this.activityType = activityType;
         this.ratio = ratio;
-        this.employeeActivities = employeeActivities;
     }
 
     public Activity() {
@@ -45,11 +43,11 @@ public class Activity {
         this.id = id;
     }
 
-    public Double getRatio() {
+    public BigDecimal getRatio() {
         return ratio;
     }
 
-    public void setRatio(Double ratio) {
+    public void setRatio(BigDecimal ratio) {
         this.ratio = ratio;
     }
 
