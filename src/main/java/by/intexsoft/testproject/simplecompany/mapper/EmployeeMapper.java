@@ -15,9 +15,8 @@ public interface EmployeeMapper {
     @Mapping(target = "id", ignore = true)
     Employee toEntity(EmployeeDto employeeDto, Position position, Contract contract, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Mapping(source = "employee.id", target = "id")
     EmployeeDto toDto(Employee employee, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
-    @Mapping(target = "employee.id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     void updateFromDto(EmployeeDto employeeDto, @MappingTarget Employee employee, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

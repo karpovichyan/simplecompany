@@ -25,7 +25,11 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanDto create(PlanDto planDto) {
-        return planMapper.toDto(planRepository.save(planMapper.toEntity(planDto)));
+        if (planDto == null) {
+            throw new IllegalArgumentException("planDto is null");
+        }
+        Plan entity = planMapper.toEntity(planDto);
+        return planMapper.toDto(planRepository.save(entity));
     }
 
     @Override
@@ -38,6 +42,9 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanDto get(Integer planId) {
+        if (planId == null) {
+            throw new IllegalArgumentException("planId is null");
+        }
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
         return planMapper.toDto(plan);
@@ -45,12 +52,21 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void delete(Integer planId) {
+        if (planId == null) {
+            throw new IllegalArgumentException("planId is null");
+        }
         planRepository.deleteById(planId);
     }
 
     @Override
     @Transactional
     public PlanDto update(PlanDto planDto, Integer planId) {
+        if (planDto == null) {
+            throw new IllegalArgumentException("planDto is null");
+        }
+        if (planId == null) {
+            throw new IllegalArgumentException("planId is null");
+        }
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
         planMapper.updateFromDto(planDto, plan);

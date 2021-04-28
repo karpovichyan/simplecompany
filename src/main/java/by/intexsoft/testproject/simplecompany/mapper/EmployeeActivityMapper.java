@@ -20,6 +20,5 @@ public interface EmployeeActivityMapper {
             Activity activity
     );
 
-    @Mapping(source = "employeeActivity.id", target = "id")
     EmployeeActivityDto toDto(EmployeeActivity employeeActivity, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 }

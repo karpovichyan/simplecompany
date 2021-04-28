@@ -11,7 +11,10 @@ import by.intexsoft.testproject.simplecompany.exception.PlanNotFoundException;
 import by.intexsoft.testproject.simplecompany.exception.PositionNotFoundException;
 import by.intexsoft.testproject.simplecompany.mapper.EmployeeMapper;
 import by.intexsoft.testproject.simplecompany.mapper.context.CycleAvoidingMappingContext;
-import by.intexsoft.testproject.simplecompany.repository.*;
+import by.intexsoft.testproject.simplecompany.repository.ContractRepository;
+import by.intexsoft.testproject.simplecompany.repository.EmployeeRepository;
+import by.intexsoft.testproject.simplecompany.repository.PlanRepository;
+import by.intexsoft.testproject.simplecompany.repository.PositionRepository;
 import by.intexsoft.testproject.simplecompany.service.EmployeeService;
 import by.intexsoft.testproject.simplecompany.service.specification.EmployeeSpecification;
 import org.springframework.data.domain.Example;
@@ -23,31 +26,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    public static final double ABSENCE_LIMIT_RATIO = 0.5;
+    private static final double EMPLOYEE_ABSENCE_LIMIT_PASS = 0.5;
     private final EmployeeRepository employeeRepository;
     private final ContractRepository contractRepository;
     private final PositionRepository positionRepository;
     private final EmployeeMapper employeeMapper;
     private final PlanRepository planRepository;
-    private final EmployeeActivityRepository employeeActivityRepository;
 
     public EmployeeServiceImpl(
             EmployeeRepository employeeRepository,
             ContractRepository contractRepository,
             PositionRepository positionRepository,
             EmployeeMapper employeeMapper,
-            PlanRepository planRepository,
-            EmployeeActivityRepository employeeActivityRepository) {
+            PlanRepository planRepository) {
         this.employeeRepository = employeeRepository;
         this.contractRepository = contractRepository;
         this.positionRepository = positionRepository;
         this.employeeMapper = employeeMapper;
         this.planRepository = planRepository;
-        this.employeeActivityRepository = employeeActivityRepository;
     }
 
     @Override
@@ -103,7 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new PlanNotFoundException("Plan with date "
                         + date + " not found"));
 
-        List<EmployeeActivity> employeeActivities = employeeActivityRepository.findAllByPlanId(plan.getId());
+        Set<EmployeeActivity> employeeActivities = plan.getEmployeeActivities();
 
         Map<Employee, List<EmployeeActivity>> employeeActivityMap = employeeActivities.stream()
                 .collect(Collectors.groupingBy(EmployeeActivity::getEmployee));
@@ -112,23 +113,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         for (Map.Entry<Employee, List<EmployeeActivity>> entry : employeeActivityMap.entrySet()) {
             List<EmployeeActivity> employeeActivityList = entry.getValue();
 
-            int sumOfPresentHours = 0;
-            int sumOfLeaveHours = 0;
+            int presentHoursSum = 0;
+            int absenseHoursSum = 0;
 
             for (EmployeeActivity employeeActivity : employeeActivityList) {
 
                 if (employeeActivity.getActivity().getActivityType() == ActivityType.PRESENT) {
-                    sumOfPresentHours += employeeActivity.getHours();
+                    presentHoursSum += employeeActivity.getHours();
                 } else {
-                    sumOfLeaveHours += employeeActivity.getHours();
+                    absenseHoursSum += employeeActivity.getHours();
                 }
             }
 
             EmployeeActivity employeeActivity = employeeActivityList.get(0);
             Integer totalHours = employeeActivity.getPlan().getTotalHours();
-            int absenceHours = totalHours - sumOfPresentHours - sumOfLeaveHours;
+            int absenceHours = totalHours - presentHoursSum - absenseHoursSum;
 
-            if ((double) absenceHours / sumOfPresentHours >= ABSENCE_LIMIT_RATIO) {
+            if ((double) absenceHours / presentHoursSum >= EMPLOYEE_ABSENCE_LIMIT_PASS) {
                 employee.add(employeeActivity.getEmployee());
             }
         }

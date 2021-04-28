@@ -22,6 +22,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDto create(ActivityDto activityDto) {
+        if (activityDto == null) {
+            throw new IllegalArgumentException("activityDto is null");
+        }
         Activity activity = activityMapper.toEntity(activityDto);
         return activityMapper.toDto(activityRepository.save(activity));
     }

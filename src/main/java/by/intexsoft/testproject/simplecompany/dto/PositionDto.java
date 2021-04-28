@@ -1,10 +1,11 @@
 package by.intexsoft.testproject.simplecompany.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class PositionDto {
     private Integer id;
-    @NotNull
+    @NotBlank
     private String name;
     @NotNull
     private Integer salary;
@@ -26,10 +27,6 @@ public class PositionDto {
         this.id = id;
     }
 
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
     public String getName() {
         return name;
     }
@@ -38,11 +35,11 @@ public class PositionDto {
         this.name = name;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 }

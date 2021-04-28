@@ -13,6 +13,6 @@ public interface PlanMapper {
 
     PlanDto toDto(Plan plan);
 
-    @Mapping(target = "plan.id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     void updateFromDto(PlanDto planDto, @MappingTarget Plan plan);
 }

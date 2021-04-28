@@ -13,6 +13,6 @@ public interface ContractMapper {
 
     ContractDto toDto(Contract contract);
 
-    @Mapping(target = "contract.id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     void updateFromDto(ContractDto contractDto, @MappingTarget Contract contract);
 }

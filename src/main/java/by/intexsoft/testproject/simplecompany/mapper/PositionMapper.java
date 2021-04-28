@@ -13,6 +13,6 @@ public interface PositionMapper {
 
     PositionDto toDto(Position position);
 
-    @Mapping(target = "position.id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     void updateFromDto(PositionDto positionDto, @MappingTarget Position position);
 }

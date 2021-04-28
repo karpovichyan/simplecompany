@@ -1,7 +1,6 @@
 package by.intexsoft.testproject.simplecompany.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -13,11 +12,9 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(nullable = false)
     private LocalDate date;
 
-    @NotNull
     @Column(nullable = false)
     private Integer totalHours;
 
@@ -28,6 +25,12 @@ public class Plan {
         this.date = date;
         this.totalHours = totalHours;
         this.employeeActivities = employeeActivities;
+    }
+
+    public Plan(Integer id, LocalDate date, Integer totalHours) {
+        this.id = id;
+        this.date = date;
+        this.totalHours = totalHours;
     }
 
     public Plan() {
