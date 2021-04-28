@@ -21,6 +21,13 @@ public class Plan {
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private Set<EmployeeActivity> employeeActivities;
 
+    public Plan(Integer id, LocalDate date, Integer totalHours, Set<EmployeeActivity> employeeActivities) {
+        this.id = id;
+        this.date = date;
+        this.totalHours = totalHours;
+        this.employeeActivities = employeeActivities;
+    }
+
     public Plan(LocalDate date, Integer totalHours, Set<EmployeeActivity> employeeActivities) {
         this.date = date;
         this.totalHours = totalHours;

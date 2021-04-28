@@ -14,6 +14,11 @@ public class Contract {
     @Column(nullable = false)
     private LocalDate date;
 
+    public Contract(Integer id, LocalDate date) {
+        this.id = id;
+        this.date = date;
+    }
+
     public Contract(LocalDate date) {
         this.date = date;
     }
