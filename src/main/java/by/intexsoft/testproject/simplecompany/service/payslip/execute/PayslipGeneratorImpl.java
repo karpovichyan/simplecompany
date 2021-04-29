@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 public class PayslipGeneratorImpl implements PayslipGenerator {
-    Logger log = LoggerFactory.getLogger(PayslipGeneratorImpl.class);
+    private final Logger log = LoggerFactory.getLogger(PayslipGeneratorImpl.class);
     private final PayslipWriter payslipWriter;
     private final PayslipContentGenerator payslipContentGenerator;
     private final EmployeeActivityRepository employeeActivityRepository;
@@ -37,8 +37,8 @@ public class PayslipGeneratorImpl implements PayslipGenerator {
 
         try {
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            log.warn("Thread has interrupted ", e);
+        } catch (InterruptedException exception) {
+            log.warn("Thread has interrupted ", exception);
         }
 
         List<EmployeeActivity> employeeActivities = employeeActivityRepository.findAllById(employeeActivityIds);
@@ -54,24 +54,24 @@ public class PayslipGeneratorImpl implements PayslipGenerator {
     private void getPayslip(List<EmployeeActivity> employeeActivities,
                             ArrayList<Integer> absenceHours,
                             ArrayList<Integer> absenceReasonHours,
-                            ArrayList<BigDecimal> earnedResult) throws IOException {
+                            ArrayList<BigDecimal> earnedResults) throws IOException {
 
         EmployeeActivity employeeActivity = employeeActivities.get(0);
-        String content = payslipContentGenerator.generate(absenceHours, earnedResult, absenceReasonHours, employeeActivity);
+        String content = payslipContentGenerator.generate(absenceHours, earnedResults, absenceReasonHours, employeeActivity);
         payslipWriter.create(employeeActivity, content);
     }
 
     private void dataCalculate(List<EmployeeActivity> employeeActivities,
                                ArrayList<Integer> absenceHours,
                                ArrayList<Integer> absenceReasonHours,
-                               ArrayList<BigDecimal> earnedResult) {
+                               ArrayList<BigDecimal> earnedResults) {
 
         for (EmployeeActivity employeeActivity : employeeActivities) {
             double earnedAnOneHour = (double) employeeActivity.getEmployee().getPosition().getSalary()
                     / employeeActivity.getPlan().getTotalHours();
             BigDecimal earnedAnHours = BigDecimal.valueOf((long) employeeActivity.getHours() * earnedAnOneHour)
                     .multiply(employeeActivity.getActivity().getRatio());
-            earnedResult.add(earnedAnHours);
+            earnedResults.add(earnedAnHours);
             if (employeeActivity.getActivity().getActivityType() == ActivityType.PRESENT) {
                 absenceHours.add(employeeActivity.getPlan().getTotalHours() - employeeActivity.getHours());
             } else {

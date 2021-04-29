@@ -26,7 +26,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanDto create(PlanDto planDto) {
         if (planDto == null) {
-            throw new IllegalArgumentException("planDto is null");
+            throw new IllegalArgumentException("planDto should not be null");
         }
         Plan entity = planMapper.toEntity(planDto);
         return planMapper.toDto(planRepository.save(entity));
@@ -43,7 +43,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanDto get(Integer planId) {
         if (planId == null) {
-            throw new IllegalArgumentException("planId is null");
+            throw new IllegalArgumentException("planId should not be null");
         }
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));
@@ -53,7 +53,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public void delete(Integer planId) {
         if (planId == null) {
-            throw new IllegalArgumentException("planId is null");
+            throw new IllegalArgumentException("planId should not be null");
         }
         planRepository.deleteById(planId);
     }
@@ -62,10 +62,10 @@ public class PlanServiceImpl implements PlanService {
     @Transactional
     public PlanDto update(PlanDto planDto, Integer planId) {
         if (planDto == null) {
-            throw new IllegalArgumentException("planDto is null");
+            throw new IllegalArgumentException("planDto should not be null");
         }
         if (planId == null) {
-            throw new IllegalArgumentException("planId is null");
+            throw new IllegalArgumentException("planId should not be null");
         }
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with id = " + planId + " not found"));

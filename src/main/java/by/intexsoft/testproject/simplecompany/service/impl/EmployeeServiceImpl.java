@@ -100,6 +100,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeDto> getEmployeesByAbsences(LocalDate date) {
+        if (date == null) {
+            throw new IllegalArgumentException("date should not be null");
+        }
         Plan plan = planRepository.findByDate(date)
                 .orElseThrow(() -> new PlanNotFoundException("Plan with date "
                         + date + " not found"));

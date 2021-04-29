@@ -87,4 +87,13 @@ public class Plan {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + id +
+                ", date=" + date +
+                ", totalHours=" + totalHours +
+                '}';
+    }
 }

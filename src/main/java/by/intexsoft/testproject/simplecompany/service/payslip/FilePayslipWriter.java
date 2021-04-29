@@ -1,6 +1,5 @@
 package by.intexsoft.testproject.simplecompany.service.payslip;
 
-import by.intexsoft.testproject.simplecompany.entity.Employee;
 import by.intexsoft.testproject.simplecompany.entity.EmployeeActivity;
 import by.intexsoft.testproject.simplecompany.properties.ConfigProperties;
 import org.springframework.stereotype.Service;
@@ -11,12 +10,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class FilePayslipWriter implements PayslipWriter {
     private final ConfigProperties configProperties;
     private final DateTimeFormatter MMMM_YYYY_FORMATTER = DateTimeFormatter.ofPattern("MMMM yyyy");
+    private static final Pattern pattern = Pattern.compile("\\d+");
 
     public FilePayslipWriter(ConfigProperties configProperties) {
         this.configProperties = configProperties;
@@ -40,27 +41,25 @@ public class FilePayslipWriter implements PayslipWriter {
     }
 
     @Override
-    public List<Employee> getExistPayslips(LocalDate date, Set<Employee> allEmployees) throws IOException {
+    public List<String> getExistPayslipIds(LocalDate date) throws IOException {
 
-        List<Employee> existingEmployeePayslips = new ArrayList<>();
         List<String> existingEmployeePayslipsIds = new ArrayList<>();
 
-        Files.createDirectories(Paths.get(getPathDirectory(date)));
         DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(getPathDirectory(date)));
-        for (Path path : directoryStream) {
-            String idFromFileName = String.valueOf(Integer.parseInt(String.valueOf(path.getFileName())
-                    .replaceAll("\\D", "")));
-            existingEmployeePayslipsIds.add(idFromFileName);
-        }
-
-        for (Employee employee : allEmployees) {
-            for (String str : existingEmployeePayslipsIds) {
-                if (String.valueOf(employee.getId()).equals(str)) {
-                    existingEmployeePayslips.add(employee);
+        for (Path file : directoryStream) {
+            if (!file.toFile().isDirectory()) {
+                Matcher matcher = pattern.matcher(file.getFileName().toString());
+                while (matcher.find()) {
+                    existingEmployeePayslipsIds.add(matcher.group());
                 }
             }
         }
-        return existingEmployeePayslips;
+        return existingEmployeePayslipsIds;
+    }
+
+    @Override
+    public void createDirectory(LocalDate date) throws IOException {
+        Files.createDirectories(Paths.get(getPathDirectory(date)));
     }
 
     private String getPathDirectory(LocalDate date) {

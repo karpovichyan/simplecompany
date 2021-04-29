@@ -12,24 +12,36 @@ public class FilePayslipContentGenerator implements PayslipContentGenerator {
     private final DateTimeFormatter MMMM_YYYY_FORMATTER = DateTimeFormatter.ofPattern("MMMM yyyy");
 
     @Override
-    public String generate(ArrayList<Integer> hourLeaves,
+    public String generate(ArrayList<Integer> absenceHours,
                            ArrayList<BigDecimal> earnedResults,
-                           ArrayList<Integer> reasonHourLeaves,
+                           ArrayList<Integer> absenceReasonHours,
                            EmployeeActivity employeeActivity) {
-        return "Period               : " + employeeActivity.getPlan().getDate().format(MMMM_YYYY_FORMATTER) + "\n"
-                + "First name           : " + employeeActivity.getEmployee().getFirstName() + "\n"
-                + "Last name            : " + employeeActivity.getEmployee().getLastName() + "\n"
-                + "Position             : " + employeeActivity.getEmployee().getPosition().getName() + "\n"
-                + "Salary               : " + employeeActivity.getEmployee().getPosition().getSalary() + "\n"
-                + "Total hours          : " + employeeActivity.getPlan().getTotalHours() + "\n"
-                + "Leave hours          : " + hourLeaves.stream().mapToInt(Integer::intValue).sum() + "\n"
-                + "Leave hours by reason: " + reasonHourLeaves.stream().mapToInt(Integer::intValue).sum() + "\n"
-                + "***************************************" + "\n"
-                + "Paid out   : " + getPaidOutInfo(earnedResults);
+
+        return String.format("Period               : %s\n" +
+                        "First name           : %s\n" +
+                        "Last name            : %s\n" +
+                        "Position             : %s\n" +
+                        "Salary               : %d\n" +
+                        "Total hours          : %d\n" +
+                        "Leave hours          : %d\n" +
+                        "Leave hours by reason: %d\n" +
+                        "***************************************\n" +
+                        "Paid out   : %.2f",
+                employeeActivity.getPlan().getDate().format(MMMM_YYYY_FORMATTER),
+                employeeActivity.getEmployee().getFirstName(),
+                employeeActivity.getEmployee().getLastName(),
+                employeeActivity.getEmployee().getPosition().getName(),
+                employeeActivity.getEmployee().getPosition().getSalary(),
+                employeeActivity.getPlan().getTotalHours(),
+                absenceHours.stream().mapToInt(Integer::intValue).sum(),
+                absenceReasonHours.stream().mapToInt(Integer::intValue).sum(),
+                getPaidOutInfo(earnedResults));
     }
 
     private BigDecimal getPaidOutInfo(ArrayList<BigDecimal> earnedResult) {
-        BigDecimal resultSalary = earnedResult.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
-        return resultSalary.setScale(2, BigDecimal.ROUND_UP);
+        return earnedResult
+                .stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, BigDecimal.ROUND_UP);
     }
 }
