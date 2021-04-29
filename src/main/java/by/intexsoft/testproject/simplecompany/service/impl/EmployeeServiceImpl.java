@@ -114,20 +114,20 @@ public class EmployeeServiceImpl implements EmployeeService {
             List<EmployeeActivity> employeeActivityList = entry.getValue();
 
             int presentHoursSum = 0;
-            int absenseHoursSum = 0;
+            int absenceReasonHoursSum = 0;
 
             for (EmployeeActivity employeeActivity : employeeActivityList) {
 
                 if (employeeActivity.getActivity().getActivityType() == ActivityType.PRESENT) {
                     presentHoursSum += employeeActivity.getHours();
                 } else {
-                    absenseHoursSum += employeeActivity.getHours();
+                    absenceReasonHoursSum += employeeActivity.getHours();
                 }
             }
 
             EmployeeActivity employeeActivity = employeeActivityList.get(0);
             Integer totalHours = employeeActivity.getPlan().getTotalHours();
-            int absenceHours = totalHours - presentHoursSum - absenseHoursSum;
+            int absenceHours = totalHours - presentHoursSum - absenceReasonHoursSum;
 
             if ((double) absenceHours / presentHoursSum >= EMPLOYEE_ABSENCE_LIMIT_PASS) {
                 employee.add(employeeActivity.getEmployee());

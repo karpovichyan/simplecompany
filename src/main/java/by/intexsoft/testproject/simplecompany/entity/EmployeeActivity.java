@@ -22,6 +22,14 @@ public class EmployeeActivity {
     @ManyToOne
     private Activity activity;
 
+    public EmployeeActivity(Integer id, Integer hours, Employee employee, Plan plan, Activity activity) {
+        this.id = id;
+        this.hours = hours;
+        this.employee = employee;
+        this.plan = plan;
+        this.activity = activity;
+    }
+
     public EmployeeActivity(Integer hours, Employee employee, Plan plan, Activity activity) {
         this.hours = hours;
         this.employee = employee;

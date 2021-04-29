@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class PayslipGeneratorImpl implements PayslipGenerator {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void generateResult(List<Integer> employeeActivityIds) {
+    public void generateResult(List<Integer> employeeActivityIds) throws IOException {
 
         try {
             Thread.sleep(3000);
@@ -53,7 +54,7 @@ public class PayslipGeneratorImpl implements PayslipGenerator {
     private void getPayslip(List<EmployeeActivity> employeeActivities,
                             ArrayList<Integer> absenceHours,
                             ArrayList<Integer> absenceReasonHours,
-                            ArrayList<BigDecimal> earnedResult) {
+                            ArrayList<BigDecimal> earnedResult) throws IOException {
 
         EmployeeActivity employeeActivity = employeeActivities.get(0);
         String content = payslipContentGenerator.generate(absenceHours, earnedResult, absenceReasonHours, employeeActivity);
