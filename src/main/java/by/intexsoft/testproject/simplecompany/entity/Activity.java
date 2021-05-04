@@ -79,4 +79,13 @@ public class Activity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", activityType=" + activityType +
+                ", ratio=" + ratio +
+                '}';
+    }
 }

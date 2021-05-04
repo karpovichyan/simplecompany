@@ -24,13 +24,12 @@ public class EmployeeDto {
     @JsonManagedReference
     private Set<EmployeeActivityDto> employeeActivities;
 
-    public EmployeeDto(Integer id, String firstName, String lastName, PositionDto position, ContractDto contract, Set<EmployeeActivityDto> employeeActivities) {
+    public EmployeeDto(Integer id, String firstName, String lastName, PositionDto position, ContractDto contract) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.contract = contract;
-        this.employeeActivities = employeeActivities;
     }
 
     public EmployeeDto() {

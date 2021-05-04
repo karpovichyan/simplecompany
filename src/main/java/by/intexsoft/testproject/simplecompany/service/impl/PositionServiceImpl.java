@@ -25,7 +25,7 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public PositionDto create(PositionDto positionDto) {
         if (positionDto == null) {
-            throw new IllegalArgumentException("positionDto is null");
+            throw new IllegalArgumentException("positionDto should not be null");
         }
         return positionMapper.toDto(positionRepository.save(positionMapper.toEntity(positionDto)));
     }
@@ -42,10 +42,10 @@ public class PositionServiceImpl implements PositionService {
     @Transactional
     public PositionDto update(PositionDto positionDto, Integer positionId) {
         if (positionDto == null) {
-            throw new IllegalArgumentException("positionDto is null");
+            throw new IllegalArgumentException("positionDto should not be null");
         }
         if (positionId == null) {
-            throw new IllegalArgumentException("positionId is null");
+            throw new IllegalArgumentException("positionId should not be null");
         }
         Position position = positionRepository.findById(positionId)
                 .orElseThrow(() -> new PositionNotFoundException("Position with id = " + positionId + " not found"));

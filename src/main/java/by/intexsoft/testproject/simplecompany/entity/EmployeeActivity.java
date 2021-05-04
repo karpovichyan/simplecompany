@@ -92,4 +92,15 @@ public class EmployeeActivity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeActivity{" +
+                "id=" + id +
+                ", hours=" + hours +
+                ", employee=" + employee +
+                ", plan=" + plan +
+                ", activity=" + activity +
+                '}';
+    }
 }
