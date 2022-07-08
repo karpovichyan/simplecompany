@@ -27,7 +27,7 @@ public class ActivityController {
     }
 
     @GetMapping
-    public List<ActivityDto> newfeature2() {
+    public List<ActivityDto> newfeature3() {
         return activityService.getAll();
     }
 
