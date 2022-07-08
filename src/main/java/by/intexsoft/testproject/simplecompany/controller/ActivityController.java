@@ -28,6 +28,7 @@ public class ActivityController {
 
     @GetMapping
     public List<ActivityDto> getAll() {
+        log.info("");
         return activityService.getAll();
     }
 
