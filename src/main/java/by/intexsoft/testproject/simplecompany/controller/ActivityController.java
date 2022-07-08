@@ -33,6 +33,7 @@ public class ActivityController {
 
     @GetMapping
     public List<ActivityDto> newfeature3() {
+        log.info("");
         return activityService.getAll();
     }
 
