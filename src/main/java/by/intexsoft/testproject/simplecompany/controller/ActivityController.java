@@ -25,4 +25,10 @@ public class ActivityController {
     public List<ActivityDto> getAll() {
         return activityService.getAll();
     }
+
+    @GetMapping
+    public List<ActivityDto> find() {
+        return activityService.getAll();
+    }
+
 }
