@@ -5,11 +5,13 @@ import by.intexsoft.testproject.simplecompany.entity.Activity;
 import by.intexsoft.testproject.simplecompany.mapper.ActivityMapper;
 import by.intexsoft.testproject.simplecompany.repository.ActivityRepository;
 import by.intexsoft.testproject.simplecompany.service.ActivityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ActivityServiceImpl implements ActivityService {
     private static final String ACTIVITY_DTO_SHOULD_NOT_BE_NULL = "activityDto should not be null";
@@ -24,6 +26,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityDto create(ActivityDto activityDto) {
         if (activityDto == null) {
+            log.info(ACTIVITY_DTO_SHOULD_NOT_BE_NULL);
             throw new IllegalArgumentException(ACTIVITY_DTO_SHOULD_NOT_BE_NULL);
         }
         Activity activity = activityMapper.toEntity(activityDto);
