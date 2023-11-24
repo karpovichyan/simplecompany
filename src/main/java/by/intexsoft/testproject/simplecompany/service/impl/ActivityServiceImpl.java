@@ -26,6 +26,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (activityDto == null) {
             throw new IllegalArgumentException(ACTIVITY_DTO_SHOULD_NOT_BE_NULL);
         }
+        System.out.println();
         Activity activity = activityMapper.toEntity(activityDto);
         return activityMapper.toDto(activityRepository.save(activity));
     }
