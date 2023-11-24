@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
+    private static final String ACTIVITY_DTO_SHOULD_NOT_BE_NULL = "activityDto should not be null";
     private final ActivityRepository activityRepository;
     private final ActivityMapper activityMapper;
 
@@ -23,7 +24,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityDto create(ActivityDto activityDto) {
         if (activityDto == null) {
-            throw new IllegalArgumentException("activityDto should not be null");
+            throw new IllegalArgumentException(ACTIVITY_DTO_SHOULD_NOT_BE_NULL);
         }
         Activity activity = activityMapper.toEntity(activityDto);
         return activityMapper.toDto(activityRepository.save(activity));
